@@ -1,0 +1,81 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" 
+    tools:context="${packageName}.${activityClass}" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageButton
+            android:id="@+id/imgbtnjoker1"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/abc_ab_bottom_solid_dark_holo" />
+
+        <ImageButton
+            android:id="@+id/imgbtnjoker2"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/abc_ab_bottom_solid_dark_holo" />
+
+        <ImageButton
+            android:id="@+id/imgbtnjoker3"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/abc_ab_bottom_solid_dark_holo" />
+
+        <ImageButton
+            android:id="@+id/imgbtnjoker4"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/abc_ab_bottom_solid_dark_holo" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/lbQuestionText"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="@string/question_default_text"
+        android:textAppearance="?android:attr/textAppearanceMedium" 
+        android:background="@color/transparent"/>
+
+    <Button
+        android:id="@+id/btnChoice0"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/choice0_default_text" 
+        android:background="@drawable/button_1_ns"
+        android:tag="0"/>
+    <Button
+        android:id="@+id/btnChoice1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/choice1_default_text" 
+        android:background="@drawable/button_1_ns"
+        android:tag="1"/>
+    <Button
+        android:id="@+id/btnChoice2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/choice2_default_text" 
+        android:background="@drawable/button_1_ns"
+        android:tag="2"/>
+    <Button
+        android:id="@+id/btnChoice3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/choice3_default_text" 
+        android:background="@drawable/button_1_ns"
+        android:tag="3"/>
+
+</LinearLayout>

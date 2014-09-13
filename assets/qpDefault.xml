@@ -1,0 +1,561 @@
+<questionPack>
+   <alQuestions>
+      <question>
+         <questionID>0</questionID>
+         <category>Tarih</category>
+         <difficultyLevel>80</difficultyLevel>
+         <text>Tarihte gelmiş geçmiş en büyük sınırlara ulaşan imparatorluk, aşağıdakilerden hangisidir?</text>
+         <choice0>Britanya</choice0>
+         <choice1>Roma</choice1>
+         <choice2>Moğol</choice2>
+         <choice3>Osmanlı</choice3>
+         <answerID>0</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Tarih</category>
+         <difficultyLevel>50</difficultyLevel>
+         <text>Aşağıdakilerden hangisi Büyük Selçuklu Devleti&apos;ni yönetmemiştir?</text>
+         <choice0>Alparslan</choice0>
+         <choice1>Süleyman Şah</choice1>
+         <choice2>Melikşah</choice2>
+         <choice3>Alaeddin Keykubat</choice3>
+         <answerID>3</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Tarih</category>
+         <difficultyLevel>30</difficultyLevel>
+         <text>Barut kimler tarafından icat edilmiştir?</text>
+         <choice0>Çinliler</choice0>
+         <choice1>Sarasenler</choice1>
+         <choice2>Türkler</choice2>
+         <choice3>Anglosaksonlar</choice3>
+         <answerID>0</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Tarih</category>
+         <difficultyLevel>60</difficultyLevel>
+         <text>Aşağıdaki olaylardan hangisi Tarihte İlk Çağ içerisinde yer alır?</text>
+         <choice0>Cilalı Taşın Bulunması</choice0>
+         <choice1>İsa&apos;nın Doğumu</choice1>
+         <choice2>Osmanlı Devleti&apos;nin Kuruluşu</choice2>
+         <choice3>İstanbul&apos;un Fethi</choice3>
+         <answerID>1</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Tarih</category>
+         <difficultyLevel>60</difficultyLevel>
+         <text>Antik Yunanistan, hangi devletin hakimiyetine girerek ortadan kalkmıştır?</text>
+         <choice0>Roma İmparatorluğu</choice0>
+         <choice1>Arnavutluk</choice1>
+         <choice2>Osmanlı İmparatorluğu</choice2>
+         <choice3>Anadolu Selçuklu Devleti</choice3>
+         <answerID>0</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Tarih</category>
+         <difficultyLevel>20</difficultyLevel>
+         <text>Aşağıdakilerden hangisi  &quot;Yazılı Tarihi Kaynak&quot; sınıfına girmez?</text>
+         <choice0>Yayınlanmış Resmi Belgeler</choice0>
+         <choice1>Edebi Eserler</choice1>
+         <choice2>Heykeller</choice2>
+         <choice3>Gazeteler</choice3>
+         <answerID>2</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Tarih</category>
+         <difficultyLevel>80</difficultyLevel>
+         <text>İlk elektrikli bilgisayar aşağıdakilerden hangisidir?</text>
+         <choice0>Abaküs</choice0>
+         <choice1>ENIAC</choice1>
+         <choice2>Pascal</choice2>
+         <choice3>Turing Makinesi</choice3>
+         <answerID>1</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Tarih</category>
+         <difficultyLevel>50</difficultyLevel>
+         <text>Osmanlı İmparatorluğu, aşağıdaki ülkelerden hangisi ile hiç antlaşma imzalamamıştır?</text>
+         <choice0>Arabistan</choice0>
+         <choice1>Alman İmparatorluğu</choice1>
+         <choice2>Venedik Cumhuriyeti</choice2>
+         <choice3>Amerika Birleşik Devletleri</choice3>
+         <answerID>0</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Tarih</category>
+         <difficultyLevel>50</difficultyLevel>
+         <text>Avusturya Macaristan İmparatorluğu, hangi Tarihi olayın sonucunda Avusturya ve Macaristan olarak ikiye ayrılmıştır?</text>
+         <choice0>Fransız İhtilali</choice0>
+         <choice1>I. Dünya Savaşı</choice1>
+         <choice2>II. Dünya Savaşı</choice2>
+         <choice3>Balkan Savaşları</choice3>
+         <answerID>1</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Tarih</category>
+         <difficultyLevel>70</difficultyLevel>
+         <text>Aşağıdakilerden hangisi, Anadolu Selçuklu Devleti&apos;nin dağılması sonrasında oluşan Anadolu Beylikleri&apos;nden değildir?</text>
+         <choice0>Germiyanoğulları</choice0>
+         <choice1>Saltukoğulları</choice1>
+         <choice2>Tacettinoğulları</choice2>
+         <choice3>Dulkadiroğulları</choice3>
+         <answerID>1</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Tarih</category>
+         <difficultyLevel>30</difficultyLevel>
+         <text>1. Dünya Savaşı&apos;nda Sarıkamış Cephesi&apos;nde hangi millete karşı savaşılmıştır?</text>
+         <choice0>Fransızlar</choice0>
+         <choice1>İngilizler</choice1>
+         <choice2>Ruslar</choice2>
+         <choice3>Yunanlar</choice3>
+         <answerID>2</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Tarih</category>
+         <difficultyLevel>50</difficultyLevel>
+         <text>Aşağıdaki antlaşmaların hangisi Osmanlı Devleti için Gerileme Dönemi&apos;nin başlangıcı olarak kabul edilir?</text>
+         <choice0>Berlin Antlaşması</choice0>
+         <choice1>Sevr Antlaşması</choice1>
+         <choice2>Karlofça Antlaşması</choice2>
+         <choice3>Pasarofça Antlaşması</choice3>
+         <answerID>2</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Tarih</category>
+         <difficultyLevel>70</difficultyLevel>
+         <text>Büyük Britanya Birleşik Krallığı 1707 yılında kurulurken, aşağıdaki ülkelerden hangisi dışarıda bırakılmıştır?</text>
+         <choice0>İskoçya Krallığı</choice0>
+         <choice1>İrlanda</choice1>
+         <choice2>Galler</choice2>
+         <choice3>İngiltere Krallığı</choice3>
+         <answerID>1</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Tarih</category>
+         <difficultyLevel>0</difficultyLevel>
+         <text>İstanbul, Fatih Sultan Mehmet tarafından kaç yılında feth edilmiştir?</text>
+         <choice0>1789</choice0>
+         <choice1>1453</choice1>
+         <choice2>1299</choice2>
+         <choice3>1920</choice3>
+         <answerID>1</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Tarih</category>
+         <difficultyLevel>50</difficultyLevel>
+         <text>Aşağıdakilerden hangisi 1. Dünya Savaşı&apos;na İtilaf Devletleri&apos;nin safında katılmamıştır?</text>
+         <choice0>İtalya</choice0>
+         <choice1>Yunanistan</choice1>
+         <choice2>Bulgaristan</choice2>
+         <choice3>Dominik Cumhuriyeti</choice3>
+         <answerID>2</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Spor</category>
+         <difficultyLevel>50</difficultyLevel>
+         <text>2008 Yılında Avrupa Kupası&apos;nda Türkiye Milli Futbol Takımı yarı finale çıktığı sırada, takımın teknik direktörü kimdir?</text>
+         <choice0>Mustafa Denizli</choice0>
+         <choice1>Fatih Terim</choice1>
+         <choice2>Şenol Güneş</choice2>
+         <choice3>Aykut Kocaman</choice3>
+         <answerID>1</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Spor</category>
+         <difficultyLevel>40</difficultyLevel>
+         <text>Aşağıdaki lakaplardan hangisi, herhangi bir Türkiye Milli Basketbol takımı için kullanılmamıştır?</text>
+         <choice0>Filenin Aslanları</choice0>
+         <choice1>Potanın Perileri</choice1>
+         <choice2>12 Cesur Yürek</choice2>
+         <choice3>12 Dev Adam</choice3>
+         <answerID>0</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Spor</category>
+         <difficultyLevel>10</difficultyLevel>
+         <text>&quot;Ping pong&quot; suporunun dilimizdeki adı nedir?</text>
+         <choice0>Masa Tenisi</choice0>
+         <choice1>Bilardo</choice1>
+         <choice2>Bovling</choice2>
+         <choice3>Kriket</choice3>
+         <answerID>0</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Spor</category>
+         <difficultyLevel>60</difficultyLevel>
+         <text>Teniste atılan servis topuna, rakip oyuncunun raketiyle dokunamamasına ne ad verilir?</text>
+         <choice0>Lob-vole</choice0>
+         <choice1>Ace</choice1>
+         <choice2>Rally</choice2>
+         <choice3>Let</choice3>
+         <answerID>1</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Genel</category>
+         <difficultyLevel>90</difficultyLevel>
+         <text>Yunanca&apos;daki &quot;heliko pteron&quot; ifadesinden gelen Helikopter kelimesinin kelime anlamı aşağıdakilerden hangisidir?</text>
+         <choice0>Hareketli Kanatlar</choice0>
+         <choice1>Dikey Hareket</choice1>
+         <choice2>Peygamber Devesi</choice2>
+         <choice3>Dört Kanat</choice3>
+         <answerID>0</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Tarih</category>
+         <difficultyLevel>50</difficultyLevel>
+         <text>Türkiye&apos;de tasarlanan ve üretilen ilk otomobil olan &quot;Devrim&quot;, hangi ilimizde üretilmiştir?</text>
+         <choice0>Kayseri</choice0>
+         <choice1>Eskişehir</choice1>
+         <choice2>Bursa</choice2>
+         <choice3>İstanbul</choice3>
+         <answerID>1</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Spor</category>
+         <difficultyLevel>20</difficultyLevel>
+         <text>Amerikan Bilardosu&apos;nda kaç adet top vardır?</text>
+         <choice0>8</choice0>
+         <choice1>9</choice1>
+         <choice2>14</choice2>
+         <choice3>3</choice3>
+         <answerID>1</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Bilgisayar</category>
+         <difficultyLevel>30</difficultyLevel>
+         <text>Windows 8 İşletim Sisteminin kullanımı, hangi ülkede yasaklanmıştır?</text>
+         <choice0>Çin</choice0>
+         <choice1>Libya</choice1>
+         <choice2>Kuzey Kore</choice2>
+         <choice3>Sudi Arabistan</choice3>
+         <answerID>0</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Genel</category>
+         <difficultyLevel>50</difficultyLevel>
+         <text>Sözcüklerin kökenlerini araştıran bilim dalına ne ad verilir?</text>
+         <choice0>Etimoloji</choice0>
+         <choice1>Antoloji</choice1>
+         <choice2>Antropoloji</choice2>
+         <choice3>Filoloji</choice3>
+         <answerID>0</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Tarih</category>
+         <difficultyLevel>40</difficultyLevel>
+         <text>Büyük İskender hangi imparatorluğun başındaydı?</text>
+         <choice0>Arnavutluk</choice0>
+         <choice1>Roma</choice1>
+         <choice2>Akad</choice2>
+         <choice3>Makedonya</choice3>
+         <answerID>3</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Tarih</category>
+         <difficultyLevel>40</difficultyLevel>
+         <text>Resmi kaynaklara göre &quot;Aslan Pençesi&quot; denilen bir çıban yüzünden 49 yaşındayken vefat eden Osmanlı Padişahı, aşağıdakilerden hangisidir?</text>
+         <choice0>IV. Murat</choice0>
+         <choice1>Yavuz Sultan Selim</choice1>
+         <choice2>Kanuni Sultan Süleyman</choice2>
+         <choice3>I. Murat</choice3>
+         <answerID>1</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Tarih</category>
+         <difficultyLevel>70</difficultyLevel>
+         <text>Aşağıdakilerden hangisi Osmanlı Devleti&apos;nde bir asker türü değildir?</text>
+         <choice0>Cebeci</choice0>
+         <choice1>Lağımcı</choice1>
+         <choice2>Topçu</choice2>
+         <choice3>Nişancı</choice3>
+         <answerID>3</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Bilgisayar</category>
+         <difficultyLevel>50</difficultyLevel>
+         <text>Bilgisayar ortamında kırmızı ve yeşil renk ışık karıştırılırsa, hangi renk elde edilir?</text>
+         <choice0>Mor</choice0>
+         <choice1>Pembe</choice1>
+         <choice2>Kahve Rengi</choice2>
+         <choice3>Sarı</choice3>
+         <answerID>3</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Tarih</category>
+         <difficultyLevel>30</difficultyLevel>
+         <text>Aşağıdaki illerimizden hangisi hiçbir zaman Osmanlı Devleti&apos;nin başkenti olmamıştır?</text>
+         <choice0>Konya</choice0>
+         <choice1>Bursa</choice1>
+         <choice2>Edirne</choice2>
+         <choice3>İstanbul</choice3>
+         <answerID>0</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Spor</category>
+         <difficultyLevel>50</difficultyLevel>
+         <text>Aşağıdakilerden hangisi top ile oynanan bir Spor değildir?</text>
+         <choice0>Rugby</choice0>
+         <choice1>Softbol</choice1>
+         <choice2>Golf</choice2>
+         <choice3>Triatlon</choice3>
+         <answerID>3</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Spor</category>
+         <difficultyLevel>70</difficultyLevel>
+         <text>IAAF hangi Spor ile ilgilenen federasyondur?</text>
+         <choice0>Beyzbol</choice0>
+         <choice1>Atletizm</choice1>
+         <choice2>Buz Hokeyi</choice2>
+         <choice3>Aikido</choice3>
+         <answerID>1</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Spor</category>
+         <difficultyLevel>40</difficultyLevel>
+         <text>Aşağıdaki ülkelerden hangisi, FIFA Dünya Kupası&apos;nda hiç şampiyon olmamıştır?</text>
+         <choice0>İngiltere</choice0>
+         <choice1>Uruguay</choice1>
+         <choice2>Fransa</choice2>
+         <choice3>Hollanda</choice3>
+         <answerID>3</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Spor</category>
+         <difficultyLevel>10</difficultyLevel>
+         <text>&quot;Çarşı&quot;, hangi futbol takımının taraftar grubudur?</text>
+         <choice0>Beşiktaş</choice0>
+         <choice1>BursaSpor</choice1>
+         <choice2>Galatasaray</choice2>
+         <choice3>KayseriSpor</choice3>
+         <answerID>0</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Spor</category>
+         <difficultyLevel>40</difficultyLevel>
+         <text>Türkiye A Milli Erkek Futbol takımımızın gelmiş geçmiş en çok gol atan oyuncusu kimdir?</text>
+         <choice0>Tanju Çolak</choice0>
+         <choice1>Metin Oktay</choice1>
+         <choice2>Hakan Şükür</choice2>
+         <choice3>Hayrettin Demirbaş</choice3>
+         <answerID>2</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Genel</category>
+         <difficultyLevel>30</difficultyLevel>
+         <text>Duygusal ve cinsel yönelim yönünden, hem hemcinsine hem de karşı cinse ilgi duyma durumuna ne ad verilir?</text>
+         <choice0>Biseksüellik</choice0>
+         <choice1>Lezbiyenlik</choice1>
+         <choice2>Nekrofili</choice2>
+         <choice3>Biseps</choice3>
+         <answerID>0</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Spor</category>
+         <difficultyLevel>70</difficultyLevel>
+         <text>Boksta aşağıdakilerden hangisi yasak değildir?</text>
+         <choice0>Kulağa vurmak</choice0>
+         <choice1>Zıplamak</choice1>
+         <choice2>Arkadan vurmak</choice2>
+         <choice3>Kendi etrafında 360 derece dönmek</choice3>
+         <answerID>1</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Edebiyat</category>
+         <difficultyLevel>70</difficultyLevel>
+         <text>Shakespeare&apos;in ünlü eseri Hamlet ile aynı ismi paylaşan  
+öykünün karakteri Prens Hamlet, hangi ülkenin prensidir?</text>
+         <choice0>İngiltere</choice0>
+         <choice1>Danimarka</choice1>
+         <choice2>Norveç</choice2>
+         <choice3>Amerika</choice3>
+         <answerID>1</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Coğrafya</category>
+         <difficultyLevel>70</difficultyLevel>
+         <text>&quot;Taşkent&quot; nerenin başkentidir?</text>
+         <choice0>İran</choice0>
+         <choice1>Kazakistan</choice1>
+         <choice2>Özbekistan</choice2>
+         <choice3>Türkmenistan</choice3>
+         <answerID>2</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Tarih</category>
+         <difficultyLevel>90</difficultyLevel>
+         <text>1. Dünya savaşının başlamasına sebep olan olayda hayatını kaybeden Avusturya
+veliahtının adı nedir?</text>
+         <choice0>A: Ferdinand von Mueller</choice0>
+         <choice1>B: Daniel Escobar</choice1>
+         <choice2>C: Stefan Nemanja</choice2>
+         <choice3>D: Franz Ferdinand</choice3>
+         <answerID>3</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Genel</category>
+         <difficultyLevel>50</difficultyLevel>
+         <text>Hukukta birisinin alması gereken bir önlemi kasıtlı olarak ihmal etmesi sonucunda
+istemeden birilerine zarar vermesi durumuna ne ad verilir?</text>
+         <choice0>Nefsi Müdafa</choice0>
+         <choice1>Takipsizlik</choice1>
+         <choice2>Olağandışı Hal</choice2>
+         <choice3>Bilinçli Taksir</choice3>
+         <answerID>3</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Spor</category>
+         <difficultyLevel>30</difficultyLevel>
+         <text>Bovling&apos;de bir oyuncu ilk atışta 3 lobut devirdikten sonraki atışında kalan 7 
+lobutu da devirirse, ne yapmış olur?</text>
+         <choice0>Strike</choice0>
+         <choice1>Spare</choice1>
+         <choice2>Gol</choice2>
+         <choice3>Full House</choice3>
+         <answerID>1</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Genel</category>
+         <difficultyLevel>0</difficultyLevel>
+         <text>Aşağıdakilerden hangisi trafik lambalarının renklerinden birisi değildir?</text>
+         <choice0>Kırmızı</choice0>
+         <choice1>Sarı</choice1>
+         <choice2>Mor</choice2>
+         <choice3>Yeşil</choice3>
+         <answerID>2</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Genel</category>
+         <difficultyLevel>90</difficultyLevel>
+         <text>Türk lirasının simgesini (çift çizgili küçük t harfi) kim tasarlamıştır?</text>
+         <choice0>Tülay Lale</choice0>
+         <choice1>Kıymet Semiz</choice1>
+         <choice2>Harun Yahya</choice2>
+         <choice3>Bergüzar Yalçın</choice3>
+         <answerID>0</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Tarih</category>
+         <difficultyLevel>0</difficultyLevel>
+         <text>Hangisi bir Osmanlı padişahının ismi değildir?</text>
+         <choice0>Süleyman</choice0>
+         <choice1>İbrahim</choice1>
+         <choice2>Selim</choice2>
+         <choice3>Berkhan</choice3>
+         <answerID>3</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Sinema</category>
+         <difficultyLevel>10</difficultyLevel>
+         <text>Hangisi bir bilim kurgu filmi değildir?</text>
+         <choice0>Otomatik Portakal</choice0>
+         <choice1>Godzilla</choice1>
+         <choice2>Açlık Oyunları</choice2>
+         <choice3>Vizontele</choice3>
+         <answerID>3</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Sinema</category>
+         <difficultyLevel>70</difficultyLevel>
+         <text>Aşağıdakilerden hangisi Darren Aronofsky filmi değildir?</text>
+         <choice0>Bir Rüya için Ağıt</choice0>
+         <choice1>Pi</choice1>
+         <choice2>Siyah Kuğu</choice2>
+         <choice3>Esaretin Bedeli</choice3>
+         <answerID>3</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Siyaset</category>
+         <difficultyLevel>80</difficultyLevel>
+         <text>Aşağıdakilerden hangisi hiç TBMM Başkanlığı yapmamıştır?</text>
+         <choice0>İsmet İnönü</choice0>
+         <choice1>Kazım Karabekir</choice1>
+         <choice2>Şükrü Saracoğlu</choice2>
+         <choice3>Ali Fethi Okyar</choice3>
+         <answerID>0</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Matematik</category>
+         <difficultyLevel>50</difficultyLevel>
+         <text>Herhangi bir tamsayı bölü başka bir tamsayı (Tamsayı / Tamsayı) olarak ifade 
+edilemeyen sayılar kümesine ne ad verilir?</text>
+         <choice0>Kesirsiz Sayılar</choice0>
+         <choice1>İrrasyonel Sayılar</choice1>
+         <choice2>Rasyonel Sayılar</choice2>
+         <choice3>Kompleks Sayılar</choice3>
+         <answerID>1</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Siyaset</category>
+         <difficultyLevel>70</difficultyLevel>
+         <text>7 Ocak 1946 yılında kurulan ve 1960 ihtilali sonrasında kapatılan Demokrat Parti&apos;nin
+kurucusu kimdir?</text>
+         <choice0>Celal Bayar</choice0>
+         <choice1>Adnan Menderes</choice1>
+         <choice2>Refik Koraltan</choice2>
+         <choice3>Cemal Gürsel</choice3>
+         <answerID>0</answerID>
+      </question>
+      <question>
+         <questionID>0</questionID>
+         <category>Spor</category>
+         <difficultyLevel>30</difficultyLevel>
+         <text>Resmi futbol kurallarına göre, aşağıdaki durumlardan hangisi bir oyuncunun kırmızı kart almasını gerektirmez?</text>
+         <choice0>Kendi takımındaki oyuncuya tükürmesi</choice0>
+         <choice1>Bilerek Elle oynayıp rakip golünü engellemesi</choice1>
+         <choice2>Serbest vuruş kullanırken oyalanıp vakit geçirmesi</choice2>
+         <choice3>Aynı maçta iki kez sarı kart görmesi</choice3>
+         <answerID>2</answerID>
+      </question>
+   </alQuestions>
+   <baseQuestionID>0</baseQuestionID>
+</questionPack>

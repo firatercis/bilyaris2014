@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">bilyaris2014</string>
+    <string name="question_default_text">Soru Buraya</string>
+    <string name="choice0_default_text">1. Seçenek</string>
+    <string name="choice1_default_text">2. Seçenek</string>
+    <string name="choice2_default_text">3. Seçenek</string>
+    <string name="choice3_default_text">4. Seçenek</string>
+    <string name="title_activity_category">CategoryActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="category_default">Kategori</string>
+    <string name="select_category">Kategori Seçiniz</string>
+    <string name="category_genel">Genel</string>
+    <string name="category_tarih">Tarih</string>
+    <string name="category_sinema">Sinema</string>
+    <string name="category_muzik">Müzik</string>
+    <string name="category_siyaset">Siyaset</string>
+    <string name="category_spor">Spor</string>
+    <string name="category_edebiyat">Edebiyat</string>
+    <string name="category_cografya">Coğrafya</string>
+    <string name="category_bilgisayar">Bilgisayar</string>
+    <string name="category_matematik">Matematik</string>
+    <string name="category_misc">Kategorisiz</string>
+    <string name="title_activity_result">ResultActivity</string>
+	<string name="result_text_default">Sonuc</string>
+    
+    
+</resources>

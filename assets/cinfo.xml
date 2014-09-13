@@ -1,0 +1,16 @@
+<creatorInfo>
+   <lastQuestionID>1200</lastQuestionID>
+   <serverIPAddress>31.210.54.136</serverIPAddress>
+   <alCategories class="java.util.ArrayList">
+      <string>Genel</string>
+      <string>Tarih</string>
+      <string>Sinema</string>
+      <string>Müzik</string>
+      <string>Siyaset</string>
+      <string>Spor</string>
+      <string>Edebiyat</string>
+      <string>Coğrafya</string>
+      <string>Bilgisayar</string>
+      <string>Matematik</string>
+   </alCategories>
+</creatorInfo>
