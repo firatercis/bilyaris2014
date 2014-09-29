@@ -15,15 +15,12 @@ public abstract class UIEngine implements AppStateObserver {
 	
 	public void sendPromptAll(int prompt, int[] params){
 		for(UserInputObserver currentObserver: userInputObservers){
-			currentObserver.onUserPrompt(prompt, params);
+			AppState state = currentObserver.onUserPrompt(prompt, params);
+			this.onStateUpdated(state);
 		}
 	}
 	
-	public void sendPromptAll(String prompt){
-		for(UserInputObserver currentObserver: userInputObservers){
-			currentObserver.onUserPrompt(prompt);
-		}
-	}
+	
 	
 	public void addUserInputObserver(UserInputObserver observer){
 		userInputObservers.add(observer);

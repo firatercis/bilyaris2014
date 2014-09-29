@@ -3,14 +3,14 @@ package com.o6Systems.appFundamentals;
 
 import java.util.ArrayList;
 
+import com.o6Systems.utils.database.DatabaseInterface;
+
 public abstract class AppEngine implements UserInputObserver{
 	public AppState currentState;
 	ArrayList<AppStateObserver> stateObservers;
+	protected DatabaseInterface dbInterface;
 	
-	
-	protected UIEngine uiEngine;
-	
-	public AppEngine(){
+	protected AppEngine(){
 		stateObservers = new ArrayList<AppStateObserver>();
 	}
 	
@@ -29,10 +29,11 @@ public abstract class AppEngine implements UserInputObserver{
 		stateObservers.add(stateObverver);
 	}
 	
-	public void connectUIEngine(UIEngine uiEngine){
-		this.uiEngine = uiEngine;
-		addStateObserver(uiEngine);
+	// Database
+	public void setDatabaseInterface(DatabaseInterface dbInterface){
+		this.dbInterface = dbInterface;
 	}
+	
 	
 	public void start(){
 		postUpdate(AppState.FULL_UPDATE);

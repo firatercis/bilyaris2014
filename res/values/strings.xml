@@ -24,6 +24,6 @@
     <string name="category_misc">Kategorisiz</string>
     <string name="title_activity_result">ResultActivity</string>
 	<string name="result_text_default">Sonuc</string>
-    
+    <string name="default_time_str">50</string>
     
 </resources>

@@ -87,9 +87,7 @@ public class Question {
             alternatives = new String[N_POSSIBLE_ANSWERS];
         }
         alternatives[nAddedAlternatives] = alternative;
-       
         nAddedAlternatives++;
-
     }
     
     public void clearAlternatives(){
@@ -116,6 +114,23 @@ public class Question {
     
     public void setAnswer(int answer){
         answerID = answer;
+    }
+    
+    public void print(){
+    	System.out.println("<QUESTION>");
+    	System.out.println("Category: " + this.category);
+    	System.out.println("Difficulty: " + this.difficultyLevel);
+    	System.out.println(this.text);
+    	
+    	if(alternatives == null){
+    		restoreAlternatives();
+    	}
+    	
+    	System.out.println("A)" + alternatives[0]);
+    	System.out.println("B)" + alternatives[1]);
+    	System.out.println("C)" + alternatives[2]);
+    	System.out.println("D)" + alternatives[3]);	
+    	System.out.println("</QUESTION>");
     }
     
 }

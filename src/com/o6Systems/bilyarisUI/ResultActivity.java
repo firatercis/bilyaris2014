@@ -19,16 +19,6 @@ public class ResultActivity extends BilYarisActivity implements OnClickListener{
 	TextView lbResult;
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_result);
-		lbResult = (TextView) findViewById(R.id.lbResult);
-		lbResult.setOnClickListener(this);
-		this.onStateUpdated(activityAppEngine.currentState);
-		
-	}
-
-	@Override
 	public void onStateUpdated(AppState currentState) {
 		
 		if(currentState.majorStateID == BilYarisAppEngine.ES_CATEGORY_SELECTION){
@@ -44,12 +34,19 @@ public class ResultActivity extends BilYarisActivity implements OnClickListener{
 	public void onClick(View v) {
 		int prompt = BilYarisAppEngine.UP_OK;
 		int[] params = null;
-		sendPromptAll(prompt,params);
+		sendPrompt(prompt,params);
 	}
 	
 	@Override
 	public void onBackPressed(){
 		// Do nothing
+	}
+
+	@Override
+	public void initViews() {
+		setContentView(R.layout.activity_result);
+		lbResult = (TextView) findViewById(R.id.lbResult);
+		lbResult.setOnClickListener(this);
 	}
 	
 	

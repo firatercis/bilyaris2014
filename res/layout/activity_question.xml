@@ -7,35 +7,52 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="0dp" 
+        android:layout_weight = "1">
+        
+		
+         <Button
+        android:id="@+id/btnFiftyPercent"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:tag="10"
+        android:background="@drawable/fiftypercent" 
+        />
+          <Button
+        android:id="@+id/btnAddTime"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:tag="11"
+        android:background="@drawable/timer" 
+        />
+           <Button
+        android:id="@+id/imgbtndoubleanswerjoker"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:tag="12"
+        android:background="@drawable/statistics" 
+        />
+        <Button
+        android:id="@+id/imgbtnstatisticsjoker"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:tag="13"
+        android:background="@drawable/x2" 
+        />
 
-        <ImageButton
-            android:id="@+id/imgbtnjoker1"
+        <TextView
+            android:id="@+id/lbTimer"
             android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:src="@drawable/abc_ab_bottom_solid_dark_holo" />
-
-        <ImageButton
-            android:id="@+id/imgbtnjoker2"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:src="@drawable/abc_ab_bottom_solid_dark_holo" />
-
-        <ImageButton
-            android:id="@+id/imgbtnjoker3"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:src="@drawable/abc_ab_bottom_solid_dark_holo" />
-
-        <ImageButton
-            android:id="@+id/imgbtnjoker4"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:src="@drawable/abc_ab_bottom_solid_dark_holo" />
+            android:gravity="center_vertical|center_horizontal|center"
+            android:text="@string/default_time_str"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -43,39 +60,39 @@
         android:id="@+id/lbQuestionText"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="4"
         android:gravity="center_vertical|center_horizontal"
         android:text="@string/question_default_text"
         android:textAppearance="?android:attr/textAppearanceMedium" 
-        android:background="@color/transparent"/>
+        android:background="@drawable/questionbg"/>
 
     <Button
         android:id="@+id/btnChoice0"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/choice0_default_text" 
-        android:background="@drawable/button_1_ns"
+        android:background="@drawable/choice1"
         android:tag="0"/>
     <Button
         android:id="@+id/btnChoice1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/choice1_default_text" 
-        android:background="@drawable/button_1_ns"
+        android:background="@drawable/choice2"
         android:tag="1"/>
     <Button
         android:id="@+id/btnChoice2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/choice2_default_text" 
-        android:background="@drawable/button_1_ns"
+        android:background="@drawable/choice3"
         android:tag="2"/>
     <Button
         android:id="@+id/btnChoice3"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/choice3_default_text" 
-        android:background="@drawable/button_1_ns"
+        android:background="@drawable/choice4"
         android:tag="3"/>
 
 </LinearLayout>

@@ -36,7 +36,7 @@ public class CreatorInfo {
     
     @ElementList
     List<String> alCategories;
-    
+   
     public CreatorInfo(){
         alCategories=new ArrayList<String>();
        

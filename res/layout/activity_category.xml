@@ -15,7 +15,7 @@
         <Button
                 android:id="@+id/btnCategory2"
                 style="@style/CategoryButtonStyle"
-                android:drawableTop="@drawable/general_category"
+                android:drawableTop="@drawable/bilgisayar"
                
                 android:tag="1"
                 android:text="@string/category_bilgisayar" />
@@ -23,22 +23,24 @@
         <Button
                 android:id="@+id/btnCategory3"
                 style="@style/CategoryButtonStyle"
-                android:drawableTop="@drawable/general_category"
+                android:drawableTop="@drawable/sinema"
                 android:tag="2"
                 android:text="@string/category_sinema" />
-		<Button
-                android:id="@+id/btnCategory4"
-                style="@style/CategoryButtonStyle"
-                android:drawableTop="@drawable/general_category"
-                android:tag="3"
-                android:text="@string/category_siyaset" />
+
+        <Button
+            android:id="@+id/btnCategory4"
+            style="@style/CategoryButtonStyle"
+            android:drawableTop="@drawable/siyaset"
+                     
+            android:tag="3"
+            android:text="@string/category_siyaset" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" 
+        android:layout_weight="2" 
         android:baselineAligned="false">
 
         <LinearLayout
@@ -50,14 +52,15 @@
             <Button
                 android:id="@+id/btnCategory5"
                 style="@style/CategoryButtonStyle"
-                android:drawableTop="@drawable/general_category"
+                android:drawableTop="@drawable/muzik"
                 android:tag="4"
                 android:text="@string/category_muzik" />
 
             <Button
                 android:id="@+id/btnCategory6"
                 style="@style/CategoryButtonStyle"
-                android:drawableTop="@drawable/general_category"
+                
+                android:drawableTop="@drawable/cografya"
                 android:tag="5"
                 android:text="@string/category_cografya" />
 
@@ -73,7 +76,7 @@
             <Button
                 android:id="@+id/btnCategory1"
                 style="@style/CategoryButtonStyle"
-                android:drawableTop="@drawable/general_category"
+                android:drawableTop="@drawable/genel"
                 android:tag="0"
                 android:text="@string/category_genel" />
 
@@ -89,14 +92,14 @@
             <Button
                 android:id="@+id/btnCategory7"
                 style="@style/CategoryButtonStyle"
-                android:drawableTop="@drawable/general_category"
+                android:drawableTop="@drawable/matematik"
                 android:tag="6"
                 android:text="@string/category_matematik" />
         
 	        <Button
 	                android:id="@+id/btnCategory8"
 	                style="@style/CategoryButtonStyle"
-	                android:drawableTop="@drawable/general_category"
+	                android:drawableTop="@drawable/spor"
 	                android:tag="7"
 	                android:text="@string/category_spor" />
 		
@@ -112,20 +115,20 @@
          <Button
                 android:id="@+id/btnCategory9"
                 style="@style/CategoryButtonStyle"
-                android:drawableTop="@drawable/general_category"
+                android:drawableTop="@drawable/tarih"
                 android:tag="8"
                 android:text="@string/category_tarih" />
         
         <Button
                 android:id="@+id/btnCategory10"
                 style="@style/CategoryButtonStyle"
-                android:drawableTop="@drawable/general_category"
+                android:drawableTop="@drawable/edebiyat"
                 android:tag="9"
                 android:text="@string/category_edebiyat" />
 		<Button
                 android:id="@+id/btnCategory11"
                 style="@style/CategoryButtonStyle"
-                android:drawableTop="@drawable/general_category"
+                android:drawableTop="@drawable/misc"
                 android:tag="10"
                 android:text="@string/category_misc" />
         

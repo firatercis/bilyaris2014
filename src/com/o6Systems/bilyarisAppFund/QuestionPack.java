@@ -14,6 +14,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,6 +30,9 @@ import org.simpleframework.xml.core.Persister;
  */
 @Root(strict=false)
 public class QuestionPack {
+	
+	public final static String DEFAULT_AUTHOR_NAME = "Default";
+	
     @ElementList
     ArrayList<Question> alQuestions;
     
@@ -40,10 +44,19 @@ public class QuestionPack {
     
     @Element(required = false)
     int baseQuestionID;
-    // TODO: duzelecek
     
+    @Element(required = false)
+	private String author;
+    
+    @Element(required = false)
+    private String creationDate;
+   
     public QuestionPack(){
         alQuestions = new ArrayList<Question>();
+    }
+    
+    public String getDate(){
+    	return creationDate;
     }
     
     // Copy Constructor
@@ -135,7 +148,29 @@ public class QuestionPack {
         //
     }
     
-    public QuestionPack getSubPack(String category){
+    public static QuestionPack load(String fileName){
+	    
+	    QuestionPack questionPack = new QuestionPack();
+	    
+	    // TODO: Kaldirilacak.
+	    System.out.println("Working Directory = " +
+	              System.getProperty("user.dir"));
+	    
+	    Serializer serializer = new Persister();
+	    File sourceFile = new File(fileName);
+	    try {
+	            questionPack = serializer.read(QuestionPack.class, sourceFile);
+	    } catch (Exception e) {
+	            System.out.println("Config File Parse Error! Cannot load Question Pack");
+	            e.printStackTrace();
+	    }
+	    
+	   
+	    
+	    return questionPack;
+	}
+
+	public QuestionPack getSubPack(String category){
         QuestionPack resultPack = new QuestionPack();
         resultPack.packName = this.packName + "_" + category;
         
@@ -160,25 +195,22 @@ public class QuestionPack {
     	Collections.shuffle(alQuestions);
     }
     
-    public static QuestionPack load(String fileName){
-        
-        QuestionPack questionPack = new QuestionPack();
-        
-        // TODO: Kaldirilacak.
-        System.out.println("Working Directory = " +
-	              System.getProperty("user.dir"));
-        
-        Serializer serializer = new Persister();
-        File sourceFile = new File(fileName);
-        try {
-                questionPack = serializer.read(QuestionPack.class, sourceFile);
-        } catch (Exception e) {
-                System.out.println("Config File Parse Error! Cannot load Question Pack");
-                e.printStackTrace();
-        }
-        
-        
-        return questionPack;
-    }
+    public String getAuthor() {
+		if(author == null){
+			author = DEFAULT_AUTHOR_NAME;
+		}
+		
+		return author;
+	}
+
+	public void print(){
+		System.out.println("<QUESTIONPACK>");
+		if(author != null)
+			System.out.println("Author: " + author);
+		for(Question Q:alQuestions){
+			Q.print();
+		}
+		System.out.println("</QUESTIONPACK>");
+	}
     
 }
