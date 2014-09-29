@@ -2,6 +2,7 @@ package com.o6Systems.bilyarisUI;
 
 import com.o6Systems.bilyarisUI.R;
 import com.o6Systems.bilyarisUI.sqlite.BilYarisSQLiteHelper;
+import com.o6Systems.bilyarisAppFund.BYDatabaseInterface;
 import com.o6Systems.bilyarisAppFund.BilYarisAppEngine;
 import com.o6Systems.bilyarisAppFund.BilYarisAppState;
 import com.o6Systems.appFundamentals.AppState;
@@ -71,9 +72,13 @@ public class CategoryActivity extends BilYarisActivity implements OnClickListene
 	private void initAppEngine(){
 		String cInfoDescription = readFromFile(BilYarisAppEngine.CREATOR_INFO_DEFAULT_FILENAME);
 		String qpDescription = readFromFile(BilYarisAppEngine.QUESTION_PACK_DEFAULT_FILENAME);
-		int promptID = BilYarisAppEngine.UP_INIT;
-		String[] params = {cInfoDescription,qpDescription};
-		sendPrompt(promptID, params);
+		//int promptID = BilYarisAppEngine.UP_INIT;
+		//String[] params = {cInfoDescription,qpDescription};
+		//sendPrompt(promptID, params);
+		
+		BYDatabaseInterface dbInterface = new BilYarisSQLiteHelper(this);
+		
+		byEngine.initApplication(cInfoDescription,qpDescription,dbInterface);
 	}
 
 

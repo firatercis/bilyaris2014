@@ -155,11 +155,11 @@ public class BilYarisAppEngine extends AppEngine{
 	}
 	
 	
-	public void initApplication(String cInfoDescription,String qpDescription){
+	public void initApplication(String cInfoDescription,String qpDescription, BYDatabaseInterface dbInterface){
 		currentBYState.setCreatorInfo(cInfoDescription);
 		currentBYState.setQuestionBase(qpDescription);
 		
-		
+		registerDatabaseInterface(dbInterface);
 		
 		currentBYState.majorStateID = ES_CATEGORY_SELECTION;
 	}

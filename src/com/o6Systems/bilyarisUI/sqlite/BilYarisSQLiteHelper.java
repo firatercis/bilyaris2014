@@ -64,7 +64,6 @@ public class BilYarisSQLiteHelper extends SQLiteOpenHelper implements BYDatabase
 		for(Question Q:qP.getQuestions()){
 			insertQuestion(db,Q,qP.getAuthor(),qP.getDate());	
 		}
-	
 	}
 	
 	public void insertQuestion(SQLiteDatabase db, Question Q, String author,String date){

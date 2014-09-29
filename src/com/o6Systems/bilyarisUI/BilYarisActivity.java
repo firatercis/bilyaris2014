@@ -22,18 +22,16 @@ import com.o6Systems.appFundamentals.TimerTaskObserver;
 public abstract class BilYarisActivity extends Activity implements AppStateObserver, TimerTaskObserver{
 
 	AppEngine applicationEngine;
-	
+	BilYarisAppEngine byEngine;
 	 @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         applicationEngine = BilYarisAppEngine.getInstance(); 
+        byEngine = (BilYarisAppEngine)applicationEngine;
         initViews();
         onStateUpdated(applicationEngine.currentState);
     }
 	 
-
-	
-	
 	public abstract void initViews();
 	
 	public void sendPrompt(int prompt, int[] params){
