@@ -16,7 +16,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class BilYarisSQLiteHelper extends SQLiteOpenHelper implements BYDatabaseInterface{
 	
 	final static String DATABASE_NAME = "bilyaris.db";
-	final static int DATABASE_VERSION = 2;
+	final static int DATABASE_VERSION = 5;
 	// Column Names;
 	final static String COLUMN_ID = "qID";
 	final static String COLUMN_TEXT = "text";
@@ -58,6 +58,12 @@ public class BilYarisSQLiteHelper extends SQLiteOpenHelper implements BYDatabase
 		qpDummy.addQuestion(test);
 		
 		insertQuestionPack(db, qpDummy);*/
+	}
+	
+	public void clearQuestions(){
+		SQLiteDatabase db = getWritableDatabase();
+		 db.execSQL("DROP TABLE IF EXISTS " + QuestionSQLiteHelper.QUESTION_TABLE_NAME);
+		 QuestionSQLiteHelper.onCreate(db);
 	}
 	
 	public void insertQuestionPack(SQLiteDatabase db, QuestionPack qP){
@@ -244,11 +250,23 @@ public class BilYarisSQLiteHelper extends SQLiteOpenHelper implements BYDatabase
 		// TODO Auto-generated method stub
 		
 	}
+	
 
+	
 	@Override
 	public String getQuestionsDate() {
-		// TODO Auto-generated method stub
-		return null;
+		SQLiteDatabase db = getReadableDatabase();
+		String queryText = "SELECT MAX(date) FROM " + QuestionSQLiteHelper.QUESTION_TABLE_NAME;
+		Cursor cursor = db.rawQuery(queryText, null);
+		String date = "";
+		
+		cursor.moveToFirst();
+	    while (!cursor.isAfterLast()) {
+	      //int index = cursor.getColumnIndex(COLUMN_DATE);
+		  date = cursor.getString(0);
+	      cursor.moveToNext();
+	    }
+		return date;
 	}
 
 }

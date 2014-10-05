@@ -24,5 +24,6 @@ public class QuestionSQLiteHelper {
 		 db.execSQL("DROP TABLE IF EXISTS " + QUESTION_TABLE_NAME);
 		    onCreate(db);
 	}
+
 	
 }

@@ -23,6 +23,9 @@ public abstract class BilYarisActivity extends Activity implements AppStateObser
 
 	AppEngine applicationEngine;
 	BilYarisAppEngine byEngine;
+	
+	
+	
 	 @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

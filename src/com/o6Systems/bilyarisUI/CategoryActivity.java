@@ -43,9 +43,13 @@ public class CategoryActivity extends BilYarisActivity implements OnClickListene
 	public void onClick(View v) {
 		
 		BilYarisSQLiteHelper sqlitehelper = new BilYarisSQLiteHelper(this);
-		SQLiteDatabase db = sqlitehelper.getReadableDatabase();
-		sqlitehelper.printQuestionDatabase(db);
-	
+		//SQLiteDatabase db = sqlitehelper.getReadableDatabase();
+		//sqlitehelper.printQuestionDatabase(db);
+		
+		String dbDate = sqlitehelper.getQuestionsDate();
+		System.out.println("Database date: " + dbDate);
+		
+		
 		String tag = (String) v.getTag();
 		int categoryID = Integer.parseInt(tag);
 		int prompt = BilYarisAppEngine.UP_CATEGORY_SELECT;
@@ -53,6 +57,8 @@ public class CategoryActivity extends BilYarisActivity implements OnClickListene
 		
 		params[0] = categoryID;
 		sendPrompt(prompt,params);
+		
+
 		
 	}
 

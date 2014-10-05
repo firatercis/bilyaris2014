@@ -23,7 +23,9 @@
     <string name="category_matematik">Matematik</string>
     <string name="category_misc">Kategorisiz</string>
     <string name="title_activity_result">ResultActivity</string>
-	<string name="result_text_default">Sonuc</string>
+    <string name="result_text_default">Sonuc</string>
     <string name="default_time_str">50</string>
-    
+    <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    <string name="action_settings">Settings</string>
+
 </resources>

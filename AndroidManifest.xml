@@ -20,15 +20,19 @@
         <activity
             android:name="com.o6Systems.bilyarisUI.CategoryActivity"
             android:label="@string/title_activity_category" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            
         </activity>
         <activity
             android:name="com.o6Systems.bilyarisUI.ResultActivity"
             android:label="@string/title_activity_result" >
+        </activity>
+        <activity
+            android:name="com.o6Systems.bilyarisUI.SplashScreenActivity"
+            android:label="@string/title_activity_splash_screen" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

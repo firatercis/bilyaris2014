@@ -49,14 +49,14 @@ public class QuestionPack {
 	private String author;
     
     @Element(required = false)
-    private String creationDate;
+    private String date;
    
     public QuestionPack(){
         alQuestions = new ArrayList<Question>();
     }
     
     public String getDate(){
-    	return creationDate;
+    	return date;
     }
     
     // Copy Constructor

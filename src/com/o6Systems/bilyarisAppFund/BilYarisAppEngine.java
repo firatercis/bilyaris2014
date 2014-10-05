@@ -37,6 +37,8 @@ public class BilYarisAppEngine extends AppEngine{
 	final static int CAT_ID_GENERAL = 0;
 	final static int MAX_N_QUESTIONS = 10;
 	
+	final static int USER_ID_DEFAULT = 0;
+	
 	
 	// Database related
 	public final static String DATABASE_INIT_SCRIPT = "CREATE TABLE QUESTIONS(qID int, text varchar(255),category varchar(30), "
@@ -157,31 +159,35 @@ public class BilYarisAppEngine extends AppEngine{
 	
 	public void initApplication(String cInfoDescription,String qpDescription, BYDatabaseInterface dbInterface){
 		currentBYState.setCreatorInfo(cInfoDescription);
-		currentBYState.setQuestionBase(qpDescription);
 		
+		QuestionPack importQuestions = QuestionPack.constructWithXMLString(qpDescription);
+		
+	
 		registerDatabaseInterface(dbInterface);
-		
 		currentBYState.majorStateID = ES_CATEGORY_SELECTION;
+		
+		// Insert questions into the database
+		dbInterface.insertQuestionPack(importQuestions);
+		
+		String generalCategory = currentBYState.getCategories().get(0);
+		
+		QuestionPack targetQuestionBase = dbInterface.getQuestions(generalCategory, USER_ID_DEFAULT, 0, 100);
+		currentBYState.setQuestionBase(targetQuestionBase);
+		
 	}
 	
-	private void initDatabase(){
+	/*private void initDatabase(){
 		if(dbInterface != null){
 			dbInterface.setCreateScript(DATABASE_INIT_SCRIPT);
 		}
-	}
+	}*/
 	
 	
 	
 	@Override
 	public AppState onUserPrompt(int prompt, String[] params) {
 	
-		if(currentBYState.majorStateID == ES_INIT){
-			if(prompt==UP_INIT){
-				String cInfoDescription = params[0];
-				String qpDescription = params[1];
-				initApplication(cInfoDescription,qpDescription);
-			}
-		}
+		
 		return currentBYState;
 	}
 	

@@ -27,6 +27,8 @@ public class BilYarisAppState extends AppState {
 	int questionIndex;
 	int userRemainingTime;
 	boolean gameOver;
+
+	
 	
 	private int tolerance;
 	private int hintChoice;
@@ -51,7 +53,11 @@ public class BilYarisAppState extends AppState {
 	}
 	
 	public void setQuestionBase(String qpDefinition){
-		questionBase = QuestionPack.constructWithXMLString(qpDefinition);
+		setQuestionBase(QuestionPack.constructWithXMLString(qpDefinition));
+	}
+	
+	public void setQuestionBase(QuestionPack qp){
+		questionBase = qp;
 	}
 	
 	private void initJokers(){
