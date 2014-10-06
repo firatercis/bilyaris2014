@@ -7,6 +7,25 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <TextView
+            android:id="@+id/lbQuestionIndex"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/indigo"
+            android:gravity="center_vertical|center_horizontal|center"
+            android:text="@string/default_index_str"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="0dp" 
         android:layout_weight = "1">
         
@@ -28,7 +47,7 @@
         android:background="@drawable/timer" 
         />
            <Button
-        android:id="@+id/imgbtndoubleanswerjoker"
+        android:id="@+id/btnStatistics"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="match_parent"
@@ -36,7 +55,7 @@
         android:background="@drawable/statistics" 
         />
         <Button
-        android:id="@+id/imgbtnstatisticsjoker"
+        android:id="@+id/btnDoubleAnswer"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="match_parent"

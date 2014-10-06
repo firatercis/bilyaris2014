@@ -99,10 +99,7 @@ public class BilYarisAppEngine extends AppEngine{
 		if(prompt == UP_CHOICE){
 			int currentChoice = params[0];
 			currentBYState.processAnswer(currentChoice);
-			if((currentBYState.questionIndex < MAX_N_QUESTIONS) && (currentBYState.gameOver == false)){
-				
-				currentBYState.fetchQuestion();
-			}else{
+			if(currentBYState.isGameOver() == true){
 				printResults();
 				currentBYState.majorStateID = ES_PRINTING_TEXT;
 			}
@@ -123,7 +120,7 @@ public class BilYarisAppEngine extends AppEngine{
 		
 		if(prompt == UP_TIMER){
 			currentBYState.elapseTime();
-			if(currentBYState.gameOver == true){
+			if(currentBYState.isGameOver() == true){
 				printResults();
 				currentBYState.majorStateID = ES_PRINTING_TEXT;
 				currentBYState.updateLevel = AppState.SEMI_UPDATE;
@@ -134,7 +131,7 @@ public class BilYarisAppEngine extends AppEngine{
 
 	
 	public void printResults(){
-		if(currentBYState.gameOver){
+		if(currentBYState.isGameOver()){
 			currentBYState.appMessage = "Oyun Bitti\r\n";
 			currentBYState.appMessage += "Puan: " + currentBYState.userScore;			
 		}else{

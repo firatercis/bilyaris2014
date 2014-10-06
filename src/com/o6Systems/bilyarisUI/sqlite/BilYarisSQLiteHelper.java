@@ -166,7 +166,7 @@ public class BilYarisSQLiteHelper extends SQLiteOpenHelper implements BYDatabase
 		index = c.getColumnIndex(COLUMN_ANSWER);
 		Q.setAnswer(c.getInt(index));
 		
-		Q.print();
+		
 		
 		return Q;
 		

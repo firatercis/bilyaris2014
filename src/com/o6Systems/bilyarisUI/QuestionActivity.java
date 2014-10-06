@@ -1,5 +1,7 @@
 package com.o6Systems.bilyarisUI;
 
+import java.util.Currency;
+
 import com.google.common.io.Resources;
 import com.o6Systems.bilyarisUI.R;
 import com.o6Systems.bilyarisAppFund.BilYarisAppEngine;
@@ -27,14 +29,22 @@ public class QuestionActivity extends BilYarisActivity implements OnClickListene
 	
 	TextView lbQuestionText;
 	TextView lbTimer;
+	TextView lbQuestionIndex;
 	Button btnChoice0;
 	Button btnChoice1;
 	Button btnChoice2;
 	Button btnChoice3;
 	Button btnFiftyPercent;
 	Button btnAddTime;
+	Button btnStatistics;
+	Button btnDoubleAnswer;
+	
+	
+	
 	Button[] choiceButtons=new Button[Question.N_POSSIBLE_ANSWERS];
-    
+     Button[] jokerButtons = new Button[4];
+	
+	
 	boolean timerInitiated = false;
 	
 	// State variable for highlighting selected answer
@@ -65,33 +75,53 @@ public class QuestionActivity extends BilYarisActivity implements OnClickListene
     	setContentView(R.layout.activity_question);
     	lbQuestionText = (TextView)findViewById(R.id.lbQuestionText);
     	lbTimer = (TextView)findViewById(R.id.lbTimer);
+    	lbQuestionIndex = (TextView)findViewById(R.id.lbQuestionIndex);
     	btnChoice0 = (Button)findViewById(R.id.btnChoice0);
     	btnChoice1 = (Button)findViewById(R.id.btnChoice1);
     	btnChoice2 = (Button)findViewById(R.id.btnChoice2);
     	btnChoice3 = (Button)findViewById(R.id.btnChoice3);
     	btnFiftyPercent = (Button) findViewById(R.id.btnFiftyPercent);
     	btnAddTime = (Button)findViewById(R.id.btnAddTime);
+    	btnStatistics = (Button) findViewById(R.id.btnStatistics);
+    	btnDoubleAnswer = (Button)findViewById(R.id.btnDoubleAnswer);
     	
-    	
-    	btnChoice0.setOnClickListener(this);
-    	btnChoice1.setOnClickListener(this);
-    	btnChoice2.setOnClickListener(this);
-    	btnChoice3.setOnClickListener(this);
-    	btnFiftyPercent.setOnClickListener(this);
-    	btnAddTime.setOnClickListener(this);
-    	
+
     	choiceButtons[0] = btnChoice0;
     	choiceButtons[1] = btnChoice1;
     	choiceButtons[2] = btnChoice2;
     	choiceButtons[3] = btnChoice3;
+    	
+    	for(int i=0;i<choiceButtons.length;i++){
+    		choiceButtons[i].setOnClickListener(this);
+    	}
+    	
+    	jokerButtons[0] = btnFiftyPercent;
+    	jokerButtons[1] = btnAddTime;
+    	jokerButtons[2] = btnStatistics;
+    	jokerButtons[3] = btnDoubleAnswer;
+    	
+    	for(int i=0; i<jokerButtons.length;i++){
+    		jokerButtons[i].setOnClickListener(this);
+    	}
     	
     	if(!timerInitiated){
     		AppTimerTask.getInstance().addObserver(this);
         	timerInitiated = true;
     	}
     	
+    	
+    	
     	guiStateID = GUI_STATE_WAITING_USER;
     	
+    }
+    
+    private void overLayerButton(Button btn, int overDrawableID){
+    	android.content.res.Resources r = getResources();
+    	Drawable[] layers = new Drawable[2];
+    	layers[0] = btn.getBackground();
+    	layers[1] = r.getDrawable(overDrawableID);
+    	LayerDrawable layerDrawable = new LayerDrawable(layers);
+    	btn.setBackground(layerDrawable);
     }
     
     private void highlightButton(Button btn){
@@ -184,6 +214,10 @@ public class QuestionActivity extends BilYarisActivity implements OnClickListene
     	
     }
     
+    private void updateQuestionIndex(final int index){
+    	lbQuestionIndex.setText("Soru " + index);
+    }
+    
     private void updateTimeLabel(final int time){
     	lbTimer.setText("" + time);
     }
@@ -194,6 +228,7 @@ public class QuestionActivity extends BilYarisActivity implements OnClickListene
     	ChoiceState[] choiceStates = currentBYState.getChoiceStates();
     	
     	lbQuestionText.setText(Q.text);
+    	//unHighlightButtons();
     	for(int i=0; i<choiceStates.length; i++){
     		if(choiceStates[i] == ChoiceState.NORMAL){
     			choiceButtons[i].setVisibility(View.VISIBLE);
@@ -201,51 +236,67 @@ public class QuestionActivity extends BilYarisActivity implements OnClickListene
     		}
     		else if(choiceStates[i] == ChoiceState.HIDDEN){
     			choiceButtons[i].setVisibility(View.INVISIBLE);
+    		}else if(choiceStates[i] == ChoiceState.HIGHLIGHTED){
+    			highlightButton(choiceButtons[i]);
+    		}else if(choiceStates[i] == ChoiceState.HIGHLIGHTED_WRONG){
+    			overLayerButton(choiceButtons[i], R.drawable.discardchoice);
     		}
     	}
     	
-    	// print jokers
+    	updateQuestionIndex(currentBYState.getQuestionIndex());
     	
-    	// Print timer
+    	
+    	// print jokers
+    	printJokers(currentBYState);
     	
     	
     }
-
-    private void playSound(int soundID){
-    	MediaPlayer mp=null;
+    
+    public void printJokers(BilYarisAppState currentBYState){
     	
-    	switch(soundID){
-    	case SOUND_ID_CORRECT:
-    		mp = MediaPlayer.create(getApplicationContext(), R.raw.correct);
-    		break;
-    	case SOUND_ID_WRONG:
-    		mp = MediaPlayer.create(getApplicationContext(), R.raw.wrong);
-    		break;
-    	default:
-    		break;
-    	}
-    	
-    	if(mp != null){
-    		mp.start();
+    	for(int i=0; i<jokerButtons.length; i++){
+    		if (currentBYState.getJokerAvailable(i) == false){
+    			overLayerButton(jokerButtons[i],R.drawable.discardjoker);
+    		}
     	}
     	
     }
     
+    private void playSound(BilYarisAppState currentBYState){
+    	int soundID = currentBYState.getCurrentSoundID();
+    	MediaPlayer mp = null;
+    	switch(soundID){
+	    	case BilYarisAppState.NO_SOUND:
+	    		break;
+	    	case BilYarisAppState.SOUND_CORRECT:
+	    		mp = MediaPlayer.create(getApplicationContext(), R.raw.correct);
+	    		break;
+	    	case BilYarisAppState.SOUND_WRONG:
+	    		mp = MediaPlayer.create(getApplicationContext(), R.raw.wrong);
+	    		break;
+	    	default:
+	    			break;
+    	}
+    	currentBYState.clearSound();
+    	
+    	if(mp != null){
+    		mp.start();
+    	}
+    }
+    
+   
+    
 	@Override
 	public void onStateUpdated(AppState currentState) {
 		
-		
-		if(currentState.majorStateID == BilYarisAppEngine.ES_WAITING_CHOICE){
-			
-			BilYarisAppState currentBYState = (BilYarisAppState)currentState;
+		BilYarisAppState currentBYState = (BilYarisAppState)currentState;
+		if(currentState.majorStateID == BilYarisAppEngine.ES_WAITING_CHOICE){	
 			if(currentBYState.updateLevel == AppState.FULL_UPDATE){
-				playSound(SOUND_ID_CORRECT);
-				printQuestion(currentBYState.getCurrentQuestion());
+				printQuestion(currentBYState.getCurrentQuestion());	
 			}
-			
 			updateTimeLabel(currentBYState.getUserRemainingTime());
-			
 		}else if(currentState.majorStateID == BilYarisAppEngine.ES_PRINTING_TEXT){
+			
 			startActivity(new Intent(getApplicationContext(), ResultActivity.class));
 			AppTimerTask.getInstance().removeObserver(this);
 			finish();
@@ -254,6 +305,10 @@ public class QuestionActivity extends BilYarisActivity implements OnClickListene
 			AppTimerTask.getInstance().removeObserver(this);
 			finish();
 		}
+		
+		// Play the sound
+		playSound(currentBYState);
+		
 	
 	}
 

@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Random;
 
 import com.o6Systems.bilyarisAppFund.jokers.BilYarisJoker;
+import com.o6Systems.bilyarisAppFund.jokers.DoubleAnswerJoker;
 import com.o6Systems.bilyarisAppFund.jokers.FiftyPercentJoker;
+import com.o6Systems.bilyarisAppFund.jokers.IncreaseTimeJoker;
 import com.o6Systems.appFundamentals.AppState;
 
 public class BilYarisAppState extends AppState {
@@ -13,8 +15,14 @@ public class BilYarisAppState extends AppState {
 	final static int DEFAULT_N_CHOICES = 4;
 	final static int DEFAULT_USER_TIME = 50;
 	
+	// SOund related
+	public final static int NO_SOUND = 0;
+	public final static int SOUND_CORRECT = 1;
+	public final static int SOUND_WRONG = 2;
+
+	
 	public enum ChoiceState{
-		NORMAL,HIDDEN,HIGHLIGHTED
+		NORMAL,HIDDEN,HIGHLIGHTED,HIGHLIGHTED_WRONG
 	}
 	
 	QuestionPack questionBase;
@@ -26,7 +34,7 @@ public class BilYarisAppState extends AppState {
 	int userScore;
 	int questionIndex;
 	int userRemainingTime;
-	boolean gameOver;
+	private boolean gameOver;
 
 	
 	
@@ -41,11 +49,21 @@ public class BilYarisAppState extends AppState {
 	ArrayList<BilYarisJoker> jokers;
 	
 	ChoiceState[] choiceStates;
+	private boolean usingDoubleAnswer;
 	
+	private int currentSoundID;
+	
+	public void clearSound(){
+		currentSoundID = NO_SOUND;
+	}
 	
 	public BilYarisAppState(){
 		reset();
 		
+	}
+	
+	public int getQuestionIndex(){
+		return questionIndex;
 	}
 	
 	public void setCreatorInfo(String cinfoDefinition){
@@ -64,6 +82,9 @@ public class BilYarisAppState extends AppState {
 		jokers=new ArrayList<BilYarisJoker>();
 		// Add jokers
 		jokers.add(new FiftyPercentJoker());
+		jokers.add(new IncreaseTimeJoker());
+		jokers.add(new IncreaseTimeJoker());
+		jokers.add(new DoubleAnswerJoker());
 	}
 	
 	public void eliminateChoice(int choiceID){
@@ -87,6 +108,8 @@ public class BilYarisAppState extends AppState {
 		setQuestion(currentQuestionPack.getQuestion(questionID));
 		userRemainingTime = DEFAULT_USER_TIME;
 		questionIndex++;
+		setUsingDoubleAnswer(false);
+		setCurrentSoundID(NO_SOUND);
 	}
 	
 	private void resetChoicesAvailable(){
@@ -102,8 +125,10 @@ public class BilYarisAppState extends AppState {
 	public void reset(){
 		questionIndex = 0;
 		userScore = 0;
-		gameOver = false;
+		setGameOver(false);
+		setUsingDoubleAnswer(false);
 		initJokers();
+		setCurrentSoundID(NO_SOUND);
 	}
 	
 	public void applyJoker(int jokerID){
@@ -117,18 +142,33 @@ public class BilYarisAppState extends AppState {
 		// TODO: Zaman ile ilgili kisimlar gelecek.
 	}
 	
+	public boolean getJokerAvailable(int i){
+		return jokers.get(i).available();
+	}
+	
+	
+	
 	public void processAnswer(int answerID){
 		if(currentQuestion.getAnswer() == answerID){
 			userScore ++;
+			fetchQuestion();
+			setCurrentSoundID(SOUND_CORRECT);
 		}else{
-			gameOver = true;
+			choiceStates[answerID] = ChoiceState.HIGHLIGHTED_WRONG;
+			setCurrentSoundID(SOUND_WRONG);
+			if(isUsingDoubleAnswer()){
+				System.out.println("Using double answer");
+				setUsingDoubleAnswer(false);
+			}else{
+				setGameOver(true);
+			}
 		}
 	}
 	
 	public void elapseTime(){
 		userRemainingTime --;
 		if(userRemainingTime <= 0){
-			gameOver = true;
+			setGameOver(true);
 			
 		}
 	}
@@ -165,5 +205,33 @@ public class BilYarisAppState extends AppState {
 		if(userRemainingTime <0)
 			userRemainingTime = 0;
 		return userRemainingTime;
+	}
+	
+	public void setUserRemainingTime(int time){
+		userRemainingTime = time;
+	}
+
+	public boolean isUsingDoubleAnswer() {
+		return usingDoubleAnswer;
+	}
+
+	public void setUsingDoubleAnswer(boolean usingDoubleAnswer) {
+		this.usingDoubleAnswer = usingDoubleAnswer;
+	}
+
+	public boolean isGameOver() {
+		return gameOver;
+	}
+
+	public void setGameOver(boolean gameOver) {
+		this.gameOver = gameOver;
+	}
+
+	public int getCurrentSoundID() {
+		return currentSoundID;
+	}
+
+	public void setCurrentSoundID(int currentSoundID) {
+		this.currentSoundID = currentSoundID;
 	}
 }
