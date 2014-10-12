@@ -1,5 +1,7 @@
 package com.o6Systems.bilyarisUI;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
@@ -45,6 +47,27 @@ public abstract class BilYarisActivity extends Activity implements AppStateObser
 	public void sendPrompt(int prompt, String[] params){
 		AppState state = applicationEngine.onUserPrompt(prompt,params);
 		this.onStateUpdated(state);
+	}
+	
+	public String readFromFileInternal(String fileName){
+		String result = "";
+		try {
+			FileInputStream fin = openFileInput(fileName);
+			 int c;
+	         
+			 Scanner s = new java.util.Scanner(fin).useDelimiter("\\A");
+			 
+	        result += s.next();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return result;
 	}
 	
 	public String readFromFile(String fileName){

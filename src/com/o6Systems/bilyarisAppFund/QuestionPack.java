@@ -183,14 +183,6 @@ public class QuestionPack {
         return resultPack;
     }
     
-   
-    
-    public ArrayList filterQuestions(QuestionPredicate predicate){
-        Collection searchResults = Collections2.filter(alQuestions, predicate);
-        return new ArrayList(searchResults);
-    }
-    
-    
     public void shuffle(){
     	Collections.shuffle(alQuestions);
     }

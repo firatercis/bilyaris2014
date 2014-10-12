@@ -1,6 +1,9 @@
 package com.o6Systems.bilyarisAppFund;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Random;
 
 import com.o6Systems.bilyarisAppFund.jokers.*;
@@ -154,17 +157,51 @@ public class BilYarisAppEngine extends AppEngine{
 	}
 	
 	
+	private boolean questionsUpToDate(QuestionPack qpImport, BYDatabaseInterface dbInterface){
+
+		boolean result = true;
+		String importDateString = qpImport.getDate();
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+		//String importDateString  = "10/10/2014 10:44";
+		//SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+		
+		String databaseDateString = dbInterface.getQuestionsDate();
+		
+		System.out.println("Import date: " + importDateString);
+		System.out.println("Database date: " + databaseDateString);
+		try {
+			Date importDate = formatter.parse(importDateString);
+			Date databaseDate = formatter.parse(databaseDateString);
+			
+			if(importDate.compareTo(databaseDate) > 0){
+				result = false;
+			}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+		return result;
+	}
+	
 	public void initApplication(String cInfoDescription,String qpDescription, BYDatabaseInterface dbInterface){
 		currentBYState.setCreatorInfo(cInfoDescription);
-		
 		QuestionPack importQuestions = QuestionPack.constructWithXMLString(qpDescription);
 		
-	
 		registerDatabaseInterface(dbInterface);
 		currentBYState.majorStateID = ES_CATEGORY_SELECTION;
 		
-		// Insert questions into the database
-		dbInterface.insertQuestionPack(importQuestions);
+		System.out.println("Checking modified date!");
+		
+		if(!questionsUpToDate(importQuestions,dbInterface)){
+			// Insert questions into the database
+			System.out.println("Questions are not up to date in database!");
+			dbInterface.clearQuestions();
+			dbInterface.insertQuestionPack(importQuestions);
+		}else{
+			System.out.println("Questions are up to date!");
+			
+		}
 		
 		String generalCategory = currentBYState.getCategories().get(0);
 		
