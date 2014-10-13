@@ -39,8 +39,6 @@ public class QuestionActivity extends BilYarisActivity implements OnClickListene
 	Button btnStatistics;
 	Button btnDoubleAnswer;
 	
-	
-	
 	Button[] choiceButtons=new Button[Question.N_POSSIBLE_ANSWERS];
      Button[] jokerButtons = new Button[4];
 	
@@ -85,7 +83,6 @@ public class QuestionActivity extends BilYarisActivity implements OnClickListene
     	btnStatistics = (Button) findViewById(R.id.btnStatistics);
     	btnDoubleAnswer = (Button)findViewById(R.id.btnDoubleAnswer);
     	
-
     	choiceButtons[0] = btnChoice0;
     	choiceButtons[1] = btnChoice1;
     	choiceButtons[2] = btnChoice2;
@@ -109,8 +106,6 @@ public class QuestionActivity extends BilYarisActivity implements OnClickListene
         	timerInitiated = true;
     	}
     	
-    	
-    	
     	guiStateID = GUI_STATE_WAITING_USER;
     	
     }
@@ -131,6 +126,7 @@ public class QuestionActivity extends BilYarisActivity implements OnClickListene
     	layers[1] = r.getDrawable(R.drawable.highlight);
     	LayerDrawable layerDrawable = new LayerDrawable(layers);
     	btn.setBackground(layerDrawable);
+    	
     }
     
     private void unHighlightButtons(){
