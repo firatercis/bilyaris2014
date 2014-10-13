@@ -10,14 +10,14 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-public class HTMLModule {
+public class HTTPModule {
 	
-    private static HTMLModule instance = null;
+    private static HTTPModule instance = null;
     
-    public static HTMLModule getInstance(){
+    public static HTTPModule getInstance(){
         
         if(instance == null){
-            instance = new HTMLModule();
+            instance = new HTTPModule();
         }
         
         return instance;

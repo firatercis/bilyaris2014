@@ -6,6 +6,7 @@ import com.o6Systems.bilyarisAppFund.BYDatabaseInterface;
 import com.o6Systems.bilyarisAppFund.BilYarisAppEngine;
 import com.o6Systems.bilyarisAppFund.BilYarisAppState;
 import com.o6Systems.appFundamentals.AppState;
+import com.o6Systems.appFundamentals.AppTimerTask;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -49,6 +50,7 @@ public class CategoryActivity extends BilYarisActivity implements OnClickListene
 		String dbDate = sqlitehelper.getQuestionsDate();
 		System.out.println("Database date: " + dbDate);
 		
+		//initAppEngine();
 		
 		String tag = (String) v.getTag();
 		int categoryID = Integer.parseInt(tag);
@@ -68,25 +70,14 @@ public class CategoryActivity extends BilYarisActivity implements OnClickListene
 			startActivity(new Intent(getApplicationContext(), QuestionActivity.class));
 			finish();
 		}
-		
-		if(currentState.majorStateID == BilYarisAppEngine.ES_INIT){
-			initAppEngine();
-		}
-		
 	}
 	
-	private void initAppEngine(){
-		String cInfoDescription = readFromFile(BilYarisAppEngine.CREATOR_INFO_DEFAULT_FILENAME);
-		String qpDescription = readFromFile(BilYarisAppEngine.QUESTION_PACK_DEFAULT_FILENAME);
-		//int promptID = BilYarisAppEngine.UP_INIT;
-		//String[] params = {cInfoDescription,qpDescription};
-		//sendPrompt(promptID, params);
+	@Override
+	public void onBackPressed(){
+		AppTimerTask.getInstance().cancel();
+		super.onBackPressed();
 		
-		BYDatabaseInterface dbInterface = new BilYarisSQLiteHelper(this);
-		
-		byEngine.initApplication(cInfoDescription,qpDescription,dbInterface);
 	}
-
 
 
 	@Override

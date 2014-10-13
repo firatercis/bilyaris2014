@@ -8,7 +8,10 @@ package com.o6Systems.bilyarisAppFund;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,11 +34,15 @@ public class CreatorInfo {
     @Element
     public int lastQuestionID=1000;
     
-    @Element
+    @Element(required = false)
     public String serverIPAddress;
     
     @ElementList
     List<String> alCategories;
+   
+    @Element(required=false)
+    String date = null;
+    
    
     public CreatorInfo(){
         alCategories=new ArrayList<String>();
@@ -88,6 +95,12 @@ public class CreatorInfo {
         }
     }
     
+    
+    
+    public Date getDate() throws ParseException{
+    	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+    	return sdf.parse(date);
+    }
     
     
 }

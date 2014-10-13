@@ -16,7 +16,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class BilYarisSQLiteHelper extends SQLiteOpenHelper implements BYDatabaseInterface{
 	
 	final static String DATABASE_NAME = "bilyaris.db";
-	final static int DATABASE_VERSION = 5;
+	final static int DATABASE_VERSION = 10;
 	// Column Names;
 	final static String COLUMN_ID = "qID";
 	final static String COLUMN_TEXT = "text";
@@ -37,7 +37,7 @@ public class BilYarisSQLiteHelper extends SQLiteOpenHelper implements BYDatabase
 	
 	public void printQuestionDatabase(SQLiteDatabase db){
 		
-		QuestionPack questions = fetchQuestions(db,"Spor",0,100,"fercis");
+		QuestionPack questions = getQuestions("Spor",0,0,100);
 		questions.print();
 	
 	}
@@ -58,18 +58,21 @@ public class BilYarisSQLiteHelper extends SQLiteOpenHelper implements BYDatabase
 		qpDummy.addQuestion(test);
 		
 		insertQuestionPack(db, qpDummy);*/
+
 	}
 	
+
 	public void clearQuestions(){
 		SQLiteDatabase db = getWritableDatabase();
-		 db.execSQL("DROP TABLE IF EXISTS " + QuestionSQLiteHelper.QUESTION_TABLE_NAME);
-		 QuestionSQLiteHelper.onCreate(db);
+	    db.execSQL("DELETE FROM " +QuestionSQLiteHelper.QUESTION_TABLE_NAME);
 	}
 	
-	public void insertQuestionPack(SQLiteDatabase db, QuestionPack qP){
-		for(Question Q:qP.getQuestions()){
-			insertQuestion(db,Q,qP.getAuthor(),qP.getDate());	
-		}
+
+	
+	public void insertModDate(SQLiteDatabase db, String date){
+		
+		db.execSQL("DELETE FROM " +QuestionSQLiteHelper.MOD_DATE_TABLE_NAME);
+		db.execSQL("INSERT INTO " + QuestionSQLiteHelper.MOD_DATE_TABLE_NAME + " VALUES('" + date + "')");
 	}
 	
 	public void insertQuestion(SQLiteDatabase db, Question Q, String author,String date){
@@ -91,38 +94,7 @@ public class BilYarisSQLiteHelper extends SQLiteOpenHelper implements BYDatabase
 		System.out.println("Insert ID " + insertID);
 		
 	}
-	
-	public QuestionPack fetchQuestions(SQLiteDatabase db, String category, int minDifficulty, int maxDifficulty, String userName){
-		// TODO: userName ile kontrol konulacak.
 		
-		String[] params = { category,"" + minDifficulty, "" + maxDifficulty};
-		//String queryText = "SELECT * FROM " + QuestionSQLiteHelper.QUESTION_TABLE_NAME +" WHERE category = ? "
-		//		+ "AND difficulty BETWEEN ? AND ?";
-		
-		String queryText = "SELECT * FROM " + QuestionSQLiteHelper.QUESTION_TABLE_NAME;
-		
-		System.out.println("Select Query!");
-		System.out.println(queryText);
-		
-		System.out.println("Params:");
-		for(int i=0; i<params.length;i++){
-			System.out.println(params[i]);
-		}
-		
-		Cursor cursor = db.rawQuery(queryText, null);
-		
-		QuestionPack qp = new QuestionPack();
-		cursor.moveToFirst();
-	    while (!cursor.isAfterLast()) {
-	      Question currentQuestion = cursorToQuestion(cursor);
-	      qp.addQuestion(currentQuestion);
-	      cursor.moveToNext();
-	    }
-	    cursor.close();
-	    
-	    return qp;
-	}
-	
 	public Question cursorToQuestion(Cursor c){
 		
 		//public final static String QUESTION_TABLE_CREATE_SCRIPT = "CREATE TABLE " + QUESTION_TABLE_NAME +  "("
@@ -165,9 +137,7 @@ public class BilYarisSQLiteHelper extends SQLiteOpenHelper implements BYDatabase
 		
 		index = c.getColumnIndex(COLUMN_ANSWER);
 		Q.setAnswer(c.getInt(index));
-		
-		
-		
+	
 		return Q;
 		
 	}
@@ -183,7 +153,7 @@ public class BilYarisSQLiteHelper extends SQLiteOpenHelper implements BYDatabase
 		for(Question Q:qP.getQuestions()){
 			insertQuestion(db,Q,qP.getAuthor(),qP.getDate());	
 		}
-		
+		insertModDate(db,qP.getDate());
 	}
 
 	@Override
@@ -250,20 +220,20 @@ public class BilYarisSQLiteHelper extends SQLiteOpenHelper implements BYDatabase
 		// TODO Auto-generated method stub
 		
 	}
-	
 
-	
 	@Override
 	public String getQuestionsDate() {
 		SQLiteDatabase db = getReadableDatabase();
-		String queryText = "SELECT MAX(date) FROM " + QuestionSQLiteHelper.QUESTION_TABLE_NAME;
+		
+		//String queryText = "SELECT MAX(date) FROM " + QuestionSQLiteHelper.QUESTION_TABLE_NAME;
+		String queryText = "SELECT date FROM " + QuestionSQLiteHelper.MOD_DATE_TABLE_NAME;
 		Cursor cursor = db.rawQuery(queryText, null);
 		String date = "";
 		
 		cursor.moveToFirst();
 	    while (!cursor.isAfterLast()) {
 	      //int index = cursor.getColumnIndex(COLUMN_DATE);
-		  date = cursor.getString(0);
+		  date = cursor.getString((0));
 	      cursor.moveToNext();
 	    }
 		return date;

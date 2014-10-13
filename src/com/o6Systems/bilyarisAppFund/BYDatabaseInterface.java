@@ -7,6 +7,7 @@ public interface BYDatabaseInterface {
 	public void updateQuestion(Question q);
 	public QuestionPack getQuestions(String category, int userID, int minDifficulty, int maxDifficulty);
 	public QuestionPack getQuestions(QuestionQuery query);
+	public void clearQuestions();
 	
 	public void insertUser(User user);
 	public void setQuestionsAsked(QuestionPack qp, User u);
