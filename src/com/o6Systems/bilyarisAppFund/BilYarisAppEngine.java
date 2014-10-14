@@ -184,16 +184,13 @@ public class BilYarisAppEngine extends AppEngine{
 		return result;
 	}
 	
-	public void initApplication(String cInfoDescription,String qpDescription, BYDatabaseInterface dbInterface){
+	public void initApplication(String cInfoDescription,String qpDescription, BYDatabaseInterface dbInterface,boolean upToDate){
 		currentBYState.setCreatorInfo(cInfoDescription);
-		QuestionPack importQuestions = QuestionPack.constructWithXMLString(qpDescription);
-		
 		registerDatabaseInterface(dbInterface);
 		currentBYState.majorStateID = ES_CATEGORY_SELECTION;
 		
-		System.out.println("Checking modified date!");
-		
-		if(!questionsUpToDate(importQuestions,dbInterface)){
+		if(!upToDate){
+			QuestionPack importQuestions = QuestionPack.constructWithXMLString(qpDescription);
 			// Insert questions into the database
 			System.out.println("Questions are not up to date in database!");
 			dbInterface.clearQuestions();
@@ -206,8 +203,7 @@ public class BilYarisAppEngine extends AppEngine{
 		String generalCategory = currentBYState.getCategories().get(0);
 		
 		QuestionPack targetQuestionBase = dbInterface.getQuestions(generalCategory, USER_ID_DEFAULT, 0, 100);
-		currentBYState.setQuestionBase(targetQuestionBase);
-		
+		currentBYState.setQuestionBase(targetQuestionBase);	
 	}
 	
 	/*private void initDatabase(){

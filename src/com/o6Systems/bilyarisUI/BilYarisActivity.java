@@ -1,5 +1,6 @@
 package com.o6Systems.bilyarisUI;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -16,6 +17,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Window;
 
 import com.o6Systems.bilyarisUI.R;
 import com.o6Systems.bilyarisAppFund.BilYarisAppEngine;
@@ -35,12 +37,14 @@ public abstract class BilYarisActivity extends Activity implements AppStateObser
 	final static String DEFAULT_DESCRIPTION_SERVER = "31.210.54.136/bilyaris/";
 	
 	String descriptionServer;
+	protected boolean descriptionsUpToDate;
 	
 	 @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         applicationEngine = BilYarisAppEngine.getInstance(); 
         byEngine = (BilYarisAppEngine)applicationEngine;
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         initViews();
         onStateUpdated(applicationEngine.currentState);
     }
@@ -99,15 +103,28 @@ public abstract class BilYarisActivity extends Activity implements AppStateObser
 		
 	}
 	
+	
+	private void flushInternals(){
+		File dir = getFilesDir();
+		File file = new File(dir, BilYarisAppEngine.CREATOR_INFO_DEFAULT_FILENAME);
+		file.delete();
+		file = new File(dir, BilYarisAppEngine.QUESTION_PACK_DEFAULT_FILENAME);
+		file.delete();
+	}
+	
 	protected String[] fetchDescriptions(){
 		String[] descriptions = new String[2];
+	
+		descriptionsUpToDate = true;
 		String cInfoDescriptionLocal =  readDescription(BilYarisAppEngine.CREATOR_INFO_DEFAULT_FILENAME,"internal");
 		String qpInfoDescription = null;
 		if(cInfoDescriptionLocal == null){
+			// ilk yukleme
 			cInfoDescriptionLocal = readDescription(BilYarisAppEngine.CREATOR_INFO_DEFAULT_FILENAME,"assets");
 			qpInfoDescription = readDescription(BilYarisAppEngine.QUESTION_PACK_DEFAULT_FILENAME,"assets");
 			writeToFileInternal(BilYarisAppEngine.CREATOR_INFO_DEFAULT_FILENAME, cInfoDescriptionLocal);
 			writeToFileInternal(BilYarisAppEngine.QUESTION_PACK_DEFAULT_FILENAME, qpInfoDescription);
+			descriptionsUpToDate = false;
 		}
 		
 		descriptions[0] = cInfoDescriptionLocal;
@@ -117,13 +134,14 @@ public abstract class BilYarisActivity extends Activity implements AppStateObser
 			descriptionServer = localCInfo.serverIPAddress;
 		}
 		
-		
 		if(isInternetConnected()){
-			String cInfoDescriptionNet =  readDescription(BilYarisAppEngine.CREATOR_INFO_DEFAULT_FILENAME,"http");
+			String cInfoDescriptionNet =  readDescription(descriptionServer + "/" + BilYarisAppEngine.CREATOR_INFO_DEFAULT_FILENAME,"http");
 			if (!cInfoUpToDate(cInfoDescriptionLocal,cInfoDescriptionNet)){
-				
+				descriptionsUpToDate = false;
 				descriptions[0] =cInfoDescriptionNet; 
-				qpInfoDescription = readDescription(BilYarisAppEngine.QUESTION_PACK_DEFAULT_FILENAME,"http");
+				qpInfoDescription = readDescription(descriptionServer + "/" + BilYarisAppEngine.QUESTION_PACK_DEFAULT_FILENAME,"http");
+				writeToFileInternal(BilYarisAppEngine.CREATOR_INFO_DEFAULT_FILENAME, cInfoDescriptionNet);
+				writeToFileInternal(BilYarisAppEngine.QUESTION_PACK_DEFAULT_FILENAME, qpInfoDescription);
 			}else{
 				qpInfoDescription = readDescription(BilYarisAppEngine.QUESTION_PACK_DEFAULT_FILENAME,"internal");
 			}
