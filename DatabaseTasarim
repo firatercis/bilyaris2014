@@ -1,0 +1,54 @@
+Database islevsellikleri:
+
+
+Tablolar:
+QUESTIONS:
+"qID integer primary key, "
+			+ "text varchar(255),"
+			+ "difficulty integer, "
+			+ "category varchar(30), "
+			+ "choice1 varchar(100), choice2 varchar(100),choice3 varchar(100), choice4 varchar(100),"
+			+ "correctanswer integer,"
+			+ "author varchar(50),"
+			+ "date datetime);";
+
+USERS:
+uid integer primary key,
+name varchar(50);
+
+
+QUESTIONASKED
+
+uid integer,
+qui integer
+
+USERSTAT
+
+uid integer,
+category varchar(30),
+tag varchar(50),
+value integer,
+
+-----------------------------------------
+Fonksiyonlar
+
+insertQuestionPack (QuestionPack)
+(OK)
+
+getQuestions(int userID, String cat,int minDifficulty, int maxDifficulty)
+SQL: SELECT FROM QUESTIONS WHERE qID NOT IN (SELECT FROM QUESTIONASKED WHERE uid = <userID>) 
+AND category=<cat> 
+AND difficulty BETWEEN <minDifficulty> AND <maxDifficulty>
+
+setQuestionAsked(int userID, int questionID)
+INSERT INTO QUESTIONASKED VALUES(userID,questionID)
+
+insertUser(User user)
+INSERT INTO USERS VALUES(0,user.name);
+
+int[] getUserStats(int userID);
+
+
+
+
+

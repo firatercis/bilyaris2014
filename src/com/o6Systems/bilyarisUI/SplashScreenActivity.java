@@ -19,7 +19,7 @@ import android.view.Menu;
 
 public class SplashScreenActivity extends BilYarisActivity {
 	
-	final static int MIN_SPLASH_SCREEN_TIME_SEC = 4;
+	final static int MIN_SPLASH_SCREEN_TIME_SEC = 2;
 	int timeRemaining = MIN_SPLASH_SCREEN_TIME_SEC;
 	static volatile boolean appInit = false;
 	
@@ -34,7 +34,6 @@ public class SplashScreenActivity extends BilYarisActivity {
 		setContentView(R.layout.activity_splash_screen);
 		System.out.println("Starting application");
 		
-		// Kaldir!
 		if(appInit == false){
 			System.out.println("Init Application");
 			initTask = new InitApplicationTask();
@@ -75,8 +74,6 @@ public class SplashScreenActivity extends BilYarisActivity {
 		}
 	}
 	
-	
-	
 	private void initAppEngine(){
 		
 		String[] descriptions = fetchDescriptions();
@@ -84,7 +81,7 @@ public class SplashScreenActivity extends BilYarisActivity {
 		String qpDescription = descriptions[1];	
 		BYDatabaseInterface dbInterface = new BilYarisSQLiteHelper(this);
 		
-		byEngine.initApplication(cInfoDescription,qpDescription,dbInterface);
+		byEngine.initApplication(cInfoDescription,qpDescription,dbInterface,descriptionsUpToDate);
 	}
 	
 	

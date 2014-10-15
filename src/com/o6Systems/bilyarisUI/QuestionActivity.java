@@ -49,7 +49,7 @@ public class QuestionActivity extends BilYarisActivity implements OnClickListene
 	
 	final static int GUI_STATE_WAITING_USER = 0;
 	final static int GUI_STATE_WAITING_ENGINE = 1;
-	final static int GUI_WAITING_ENGINE_SECS = 3;
+	final static int GUI_WAITING_ENGINE_SECS = 1;
 	int guiStateID;
 	int waitingTickCounter = GUI_WAITING_ENGINE_SECS;
 	int bufferedPromptID;
@@ -105,7 +105,6 @@ public class QuestionActivity extends BilYarisActivity implements OnClickListene
     		AppTimerTask.getInstance().addObserver(this);
         	timerInitiated = true;
     	}
-    	
     	guiStateID = GUI_STATE_WAITING_USER;
     	
     }
@@ -145,10 +144,6 @@ public class QuestionActivity extends BilYarisActivity implements OnClickListene
     	
     }
     
-    private void startWaitingEngine(){
-    	guiStateID = GUI_STATE_WAITING_ENGINE;
-    }
-    
     private void bufferSelection(int prompt, int[] params){
     	bufferedPromptID = prompt;
 		bufferedParams = params;
@@ -163,11 +158,15 @@ public class QuestionActivity extends BilYarisActivity implements OnClickListene
 		int prompt=0; 
 		int[] params = new int[1];
 		if(choiceID < 10){
-			prompt = BilYarisAppEngine.UP_CHOICE;
-			params[0] = choiceID;
-			bufferSelection(prompt,params);
-			startWaitingEngine();
-			highlightButton(clickedButton);
+			
+			if(guiStateID == GUI_STATE_WAITING_USER){
+				prompt = BilYarisAppEngine.UP_CHOICE;
+				params[0] = choiceID;
+				
+				bufferSelection(prompt,params);
+				highlightButton(clickedButton);
+				guiStateID = GUI_STATE_WAITING_ENGINE;
+			}
 		}else{
 			prompt = BilYarisAppEngine.UP_JOKER;
 			params[0] = choiceID -10;
@@ -198,7 +197,6 @@ public class QuestionActivity extends BilYarisActivity implements OnClickListene
 					if(waitingTickCounter == 0){
 						guiStateID = GUI_STATE_WAITING_USER;
 						waitingTickCounter = GUI_WAITING_ENGINE_SECS;
-						
 						AppState state = BilYarisAppEngine.getInstance().onUserPrompt(bufferedPromptID,bufferedParams);
 						onStateUpdated(state);
 						unHighlightButtons();

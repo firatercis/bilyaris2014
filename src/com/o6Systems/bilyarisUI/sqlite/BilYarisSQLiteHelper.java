@@ -16,7 +16,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class BilYarisSQLiteHelper extends SQLiteOpenHelper implements BYDatabaseInterface{
 	
 	final static String DATABASE_NAME = "bilyaris.db";
-	final static int DATABASE_VERSION = 10;
+	final static int DATABASE_VERSION = 11;
 	// Column Names;
 	final static String COLUMN_ID = "qID";
 	final static String COLUMN_TEXT = "text";
@@ -30,10 +30,18 @@ public class BilYarisSQLiteHelper extends SQLiteOpenHelper implements BYDatabase
 	final static String COLUMN_AUTHOR = "author";
 	final static String COLUMN_DATE = "date";
 	
+	public final static String USER_TABLE_NAME = "USERS";
+	
+	public final static String USER_TABLE_CREATE_SCRIPT = "CREATE TABLE " + USER_TABLE_NAME +  "("
+			+ "uid integer primary key, "
+			+ "name varchar(100));";
+	// TODO: User'a yeni field'lar illa eklenecek.
+	
 	public BilYarisSQLiteHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		
 	}
+	
 	
 	public void printQuestionDatabase(SQLiteDatabase db){
 		
@@ -44,38 +52,41 @@ public class BilYarisSQLiteHelper extends SQLiteOpenHelper implements BYDatabase
 	
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		QuestionSQLiteHelper.onCreate(db);
-		/*Question test = new Question();
-		test.text = "aleleyo";
-		test.difficultyLevel = 60;
-		test.addAlternative("a1");
-		test.addAlternative("a2");
-		test.addAlternative("a3");
-		test.addAlternative("a4");
-		test.setAnswer(3);
-		test.category = "Spor";
-		QuestionPack qpDummy = new QuestionPack();
-		qpDummy.addQuestion(test);
 		
-		insertQuestionPack(db, qpDummy);*/
-
+		System.out.println("Creating database tables");
+		db.execSQL(DatabaseConstants.QUESTION_CREATE);
+		db.execSQL(DatabaseConstants.USER_CREATE);
+		db.execSQL(DatabaseConstants.QUESTION_ASKED_CREATE);
+		db.execSQL(DatabaseConstants.USERSTAT_CREATE);
+		
+		
 	}
 	
-
+	@Override
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		
+		db.execSQL(DatabaseConstants.QUESTION_CREATE);
+		db.execSQL(DatabaseConstants.USER_CREATE);
+		db.execSQL(DatabaseConstants.QUESTION_ASKED_CREATE);
+		db.execSQL(DatabaseConstants.USERSTAT_CREATE);
+		
+		
+		
+	    db.execSQL("DROP TABLE IF EXISTS " + DatabaseConstants.QUESTION_TABLE_NAME);
+		db.execSQL("DROP TABLE IF EXISTS " + DatabaseConstants.USER_TABLE_NAME);
+		db.execSQL("DROP TABLE IF EXISTS " + DatabaseConstants.QUESTION_ASKED_TABLE_NAME);
+		db.execSQL("DROP TABLE IF EXISTS " + DatabaseConstants.USERSTAT_TABLE_NAME);
+		onCreate(db);
+	}
+	
+	
 	public void clearQuestions(){
 		SQLiteDatabase db = getWritableDatabase();
-	    db.execSQL("DELETE FROM " +QuestionSQLiteHelper.QUESTION_TABLE_NAME);
+	    db.execSQL("DELETE FROM " +DatabaseConstants.QUESTION_TABLE_NAME);
 	}
 	
-
 	
-	public void insertModDate(SQLiteDatabase db, String date){
-		
-		db.execSQL("DELETE FROM " +QuestionSQLiteHelper.MOD_DATE_TABLE_NAME);
-		db.execSQL("INSERT INTO " + QuestionSQLiteHelper.MOD_DATE_TABLE_NAME + " VALUES('" + date + "')");
-	}
-	
-	public void insertQuestion(SQLiteDatabase db, Question Q, String author,String date){
+	private void insertQuestion(SQLiteDatabase db, Question Q, String author,String date){
 		
 		ContentValues values = new ContentValues();
 		values.put(COLUMN_ID, Q.questionID);
@@ -90,7 +101,7 @@ public class BilYarisSQLiteHelper extends SQLiteOpenHelper implements BYDatabase
 		values.put(COLUMN_AUTHOR, author);
 		values.put(COLUMN_DATE, date);
 		
-		long insertID = db.insert(QuestionSQLiteHelper.QUESTION_TABLE_NAME, null, values);
+		long insertID = db.insert(DatabaseConstants.QUESTION_TABLE_NAME, null, values);
 		System.out.println("Insert ID " + insertID);
 		
 	}
@@ -142,10 +153,7 @@ public class BilYarisSQLiteHelper extends SQLiteOpenHelper implements BYDatabase
 		
 	}
 	
-	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		QuestionSQLiteHelper.onUpgrade(db, oldVersion, newVersion);
-	}
+	
 
 	@Override
 	public void insertQuestionPack(QuestionPack qP) {
@@ -153,14 +161,8 @@ public class BilYarisSQLiteHelper extends SQLiteOpenHelper implements BYDatabase
 		for(Question Q:qP.getQuestions()){
 			insertQuestion(db,Q,qP.getAuthor(),qP.getDate());	
 		}
-		insertModDate(db,qP.getDate());
 	}
 
-	@Override
-	public void updateQuestion(Question q) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public QuestionPack getQuestions(String category, int userID, int minDifficulty,
@@ -178,7 +180,7 @@ public class BilYarisSQLiteHelper extends SQLiteOpenHelper implements BYDatabase
 			categoryPredicat
 		}*/
 		
-		String queryText = "SELECT * FROM " + QuestionSQLiteHelper.QUESTION_TABLE_NAME;
+		String queryText = "SELECT * FROM " + DatabaseConstants.QUESTION_TABLE_NAME;
 		
 		System.out.println("Select Query!");
 		System.out.println(queryText);
@@ -204,12 +206,6 @@ public class BilYarisSQLiteHelper extends SQLiteOpenHelper implements BYDatabase
 	}
 
 	@Override
-	public QuestionPack getQuestions(QuestionQuery query) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void insertUser(User user) {
 		// TODO Auto-generated method stub
 		
@@ -221,22 +217,5 @@ public class BilYarisSQLiteHelper extends SQLiteOpenHelper implements BYDatabase
 		
 	}
 
-	@Override
-	public String getQuestionsDate() {
-		SQLiteDatabase db = getReadableDatabase();
-		
-		//String queryText = "SELECT MAX(date) FROM " + QuestionSQLiteHelper.QUESTION_TABLE_NAME;
-		String queryText = "SELECT date FROM " + QuestionSQLiteHelper.MOD_DATE_TABLE_NAME;
-		Cursor cursor = db.rawQuery(queryText, null);
-		String date = "";
-		
-		cursor.moveToFirst();
-	    while (!cursor.isAfterLast()) {
-	      //int index = cursor.getColumnIndex(COLUMN_DATE);
-		  date = cursor.getString((0));
-	      cursor.moveToNext();
-	    }
-		return date;
-	}
 
 }

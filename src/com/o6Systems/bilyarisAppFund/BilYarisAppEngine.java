@@ -155,45 +155,14 @@ public class BilYarisAppEngine extends AppEngine{
 		}
 		return instance;
 	}
-	
-	
-	private boolean questionsUpToDate(QuestionPack qpImport, BYDatabaseInterface dbInterface){
-
-		boolean result = true;
-		String importDateString = qpImport.getDate();
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
-		//String importDateString  = "10/10/2014 10:44";
-		//SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 		
-		String databaseDateString = dbInterface.getQuestionsDate();
-		
-		System.out.println("Import date: " + importDateString);
-		System.out.println("Database date: " + databaseDateString);
-		try {
-			Date importDate = formatter.parse(importDateString);
-			Date databaseDate = formatter.parse(databaseDateString);
-			
-			if(importDate.compareTo(databaseDate) > 0){
-				result = false;
-			}
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	
-		return result;
-	}
-	
-	public void initApplication(String cInfoDescription,String qpDescription, BYDatabaseInterface dbInterface){
+	public void initApplication(String cInfoDescription,String qpDescription, BYDatabaseInterface dbInterface,boolean upToDate){
 		currentBYState.setCreatorInfo(cInfoDescription);
-		QuestionPack importQuestions = QuestionPack.constructWithXMLString(qpDescription);
-		
 		registerDatabaseInterface(dbInterface);
 		currentBYState.majorStateID = ES_CATEGORY_SELECTION;
 		
-		System.out.println("Checking modified date!");
-		
-		if(!questionsUpToDate(importQuestions,dbInterface)){
+		if(!upToDate){
+			QuestionPack importQuestions = QuestionPack.constructWithXMLString(qpDescription);
 			// Insert questions into the database
 			System.out.println("Questions are not up to date in database!");
 			dbInterface.clearQuestions();
@@ -206,8 +175,7 @@ public class BilYarisAppEngine extends AppEngine{
 		String generalCategory = currentBYState.getCategories().get(0);
 		
 		QuestionPack targetQuestionBase = dbInterface.getQuestions(generalCategory, USER_ID_DEFAULT, 0, 100);
-		currentBYState.setQuestionBase(targetQuestionBase);
-		
+		currentBYState.setQuestionBase(targetQuestionBase);	
 	}
 	
 	/*private void initDatabase(){

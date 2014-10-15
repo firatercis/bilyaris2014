@@ -28,7 +28,7 @@ import org.simpleframework.xml.core.Persister;
 public class CreatorInfo {
     
     public final static String CREATOR_INFO_FILE_NAME = "cinfo.xml";
-    
+    public final static String DEFAULT_FIRST_DATE = "13/11/1986 18:30";
 
     
     @Element
@@ -41,7 +41,7 @@ public class CreatorInfo {
     List<String> alCategories;
    
     @Element(required=false)
-    String date = null;
+    String date = DEFAULT_FIRST_DATE;
     
    
     public CreatorInfo(){

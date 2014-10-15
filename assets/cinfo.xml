@@ -1,6 +1,6 @@
 <creatorInfo>
    <lastQuestionID>1200</lastQuestionID>
-   <serverIPAddress>31.210.54.136/bilyaris</serverIPAddress>
+   <serverIPAddress>http://31.210.54.136/bilyaris</serverIPAddress>
    <alCategories class="java.util.ArrayList">
       <string>Genel</string>
       <string>Bilgisayar</string>
@@ -13,4 +13,5 @@
       <string>Tarih</string>
       <string>Edebiyat</string>
    </alCategories>
+   <date>14/10/2014 21:26</date>
 </creatorInfo>
