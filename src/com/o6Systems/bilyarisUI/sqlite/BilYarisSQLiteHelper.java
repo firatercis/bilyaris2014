@@ -16,9 +16,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class BilYarisSQLiteHelper extends SQLiteOpenHelper implements BYDatabaseInterface{
 	
 	final static String DATABASE_NAME = "bilyaris.db";
-	final static int DATABASE_VERSION = 11;
+	final static int DATABASE_VERSION = 15;
 	// Column Names;
-	final static String COLUMN_ID = "qID";
+	final static String QUESTION_ID_COLUMN = "qID";
 	final static String COLUMN_TEXT = "text";
 	final static String COLUMN_CATEGORY = "category";
 	final static String COLUMN_DIFFICULTY = "difficulty";
@@ -29,25 +29,16 @@ public class BilYarisSQLiteHelper extends SQLiteOpenHelper implements BYDatabase
 	final static String COLUMN_ANSWER = "correctanswer";
 	final static String COLUMN_AUTHOR = "author";
 	final static String COLUMN_DATE = "date";
+	final static String COLUMN_TAG = "tag";
+	final static String COLUMN_VALUE = "value";
 	
-	public final static String USER_TABLE_NAME = "USERS";
-	
-	public final static String USER_TABLE_CREATE_SCRIPT = "CREATE TABLE " + USER_TABLE_NAME +  "("
-			+ "uid integer primary key, "
-			+ "name varchar(100));";
-	// TODO: User'a yeni field'lar illa eklenecek.
+	// User column names
+	final static String USER_ID_COLUMN = "uID";
+	final static String USER_NAME_COLUMN = "name";
 	
 	public BilYarisSQLiteHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		
-	}
-	
-	
-	public void printQuestionDatabase(SQLiteDatabase db){
-		
-		QuestionPack questions = getQuestions("Spor",0,0,100);
-		questions.print();
-	
 	}
 	
 	@Override
@@ -65,13 +56,7 @@ public class BilYarisSQLiteHelper extends SQLiteOpenHelper implements BYDatabase
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		
-		db.execSQL(DatabaseConstants.QUESTION_CREATE);
-		db.execSQL(DatabaseConstants.USER_CREATE);
-		db.execSQL(DatabaseConstants.QUESTION_ASKED_CREATE);
-		db.execSQL(DatabaseConstants.USERSTAT_CREATE);
-		
-		
-		
+	
 	    db.execSQL("DROP TABLE IF EXISTS " + DatabaseConstants.QUESTION_TABLE_NAME);
 		db.execSQL("DROP TABLE IF EXISTS " + DatabaseConstants.USER_TABLE_NAME);
 		db.execSQL("DROP TABLE IF EXISTS " + DatabaseConstants.QUESTION_ASKED_TABLE_NAME);
@@ -89,7 +74,7 @@ public class BilYarisSQLiteHelper extends SQLiteOpenHelper implements BYDatabase
 	private void insertQuestion(SQLiteDatabase db, Question Q, String author,String date){
 		
 		ContentValues values = new ContentValues();
-		values.put(COLUMN_ID, Q.questionID);
+		values.put(QUESTION_ID_COLUMN, Q.questionID);
 		values.put(COLUMN_TEXT, Q.text);
 		values.put(COLUMN_CATEGORY, Q.category);
 		values.put(COLUMN_CHOICE1, Q.getAlternative(0));
@@ -106,7 +91,7 @@ public class BilYarisSQLiteHelper extends SQLiteOpenHelper implements BYDatabase
 		
 	}
 		
-	public Question cursorToQuestion(Cursor c){
+	private Question cursorToQuestion(Cursor c){
 		
 		//public final static String QUESTION_TABLE_CREATE_SCRIPT = "CREATE TABLE " + QUESTION_TABLE_NAME +  "("
 			/*	+ "qID integer primary key, "
@@ -119,7 +104,7 @@ public class BilYarisSQLiteHelper extends SQLiteOpenHelper implements BYDatabase
 		
 		Question Q = new Question();
 		
-		int index = c.getColumnIndex(COLUMN_ID);
+		int index = c.getColumnIndex(QUESTION_ID_COLUMN);
 		Q.questionID = c.getInt(index);
 		
 		index = c.getColumnIndex(COLUMN_TEXT);
@@ -131,7 +116,7 @@ public class BilYarisSQLiteHelper extends SQLiteOpenHelper implements BYDatabase
 		index = c.getColumnIndex(COLUMN_CATEGORY);
 		Q.category = c.getString(index);
 		
-		index = c.getColumnIndex(COLUMN_ID);
+		index = c.getColumnIndex(QUESTION_ID_COLUMN);
 		Q.questionID = c.getInt(index);
 		
 		index = c.getColumnIndex(COLUMN_CHOICE1);
@@ -163,37 +148,41 @@ public class BilYarisSQLiteHelper extends SQLiteOpenHelper implements BYDatabase
 		}
 	}
 
-
+	
 	@Override
 	public QuestionPack getQuestions(String category, int userID, int minDifficulty,
-			int maxDifficulty) {
+			int maxDifficulty, int nQuestions) {
 		
 		SQLiteDatabase db = getReadableDatabase();
-		String[] params = { category,"" + minDifficulty, "" + maxDifficulty};
-		//String queryText = "SELECT * FROM " + QuestionSQLiteHelper.QUESTION_TABLE_NAME +" WHERE category = ? "
-		//		+ "AND difficulty BETWEEN ? AND ?";
 		
+		String queryText = "SELECT * FROM " +DatabaseConstants.QUESTION_TABLE_NAME+ " WHERE " 
+		+ QUESTION_ID_COLUMN + 
+		" NOT IN "
+		+ "(SELECT " + QUESTION_ID_COLUMN + " FROM " + DatabaseConstants.QUESTION_ASKED_TABLE_NAME + " WHERE uID = "
+				+ userID + ")"; 
+			
+		if(category!= null){
+			queryText +=" AND category='" + category + "'";
+		}
 		
+		if(minDifficulty != -1){
+			queryText += " AND difficulty BETWEEN " + minDifficulty + " AND " + maxDifficulty; 
+		}		
 		
-		/*String categoryPredicate = "";
-		if(category != null){
-			categoryPredicat
-		}*/
-		
-		String queryText = "SELECT * FROM " + DatabaseConstants.QUESTION_TABLE_NAME;
+		queryText += " ORDER BY ABS(RANDOM()) LIMIT "  + nQuestions ; 
 		
 		System.out.println("Select Query!");
 		System.out.println(queryText);
 		
-		System.out.println("Params:");
-		for(int i=0; i<params.length;i++){
-			System.out.println(params[i]);
-		}
-		
+	
 		Cursor cursor = db.rawQuery(queryText, null);
+		System.out.println("Cursor count" + cursor.getCount());
 		
 		QuestionPack qp = new QuestionPack();
 		cursor.moveToFirst();
+		
+	
+		
 	    while (!cursor.isAfterLast()) {
 	      Question currentQuestion = cursorToQuestion(cursor);
 	      qp.addQuestion(currentQuestion);
@@ -201,20 +190,83 @@ public class BilYarisSQLiteHelper extends SQLiteOpenHelper implements BYDatabase
 	    }
 	    cursor.close();
 	    
+	    System.out.println("Questions size!");
+	    System.out.println(qp.getQuestions().size());
 	    return qp;
-		
 	}
-
+	
 	@Override
 	public void insertUser(User user) {
-		// TODO Auto-generated method stub
 		
+		SQLiteDatabase db = getWritableDatabase();
+		
+		ContentValues values = new ContentValues();
+		values.put(USER_ID_COLUMN, user.getUserID());
+		
+		long insertID = db.insert(DatabaseConstants.USER_TABLE_NAME, null, values);
+		System.out.println("User Insert ID " + insertID);
 	}
 
 	@Override
-	public void setQuestionsAsked(QuestionPack qp, User u) {
-		// TODO Auto-generated method stub
+	public void setQuestionAsked(Question q, User u) {
+		SQLiteDatabase db = getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put(USER_ID_COLUMN, u.getUserID());
+		values.put(QUESTION_ID_COLUMN,q.getID());
+		long insertID = db.insert(DatabaseConstants.QUESTION_ASKED_TABLE_NAME, null, values);
+		System.out.println("Question asked insert ID " + insertID);
+		printQuestionsAsked();	
+	}
+
+	private void printQuestionsAsked(){
+		SQLiteDatabase db = getReadableDatabase();
+		String queryText = "SELECT qID FROM " + DatabaseConstants.QUESTION_ASKED_TABLE_NAME ;
+		Cursor cursor = db.rawQuery(queryText, null);
+		int index = cursor.getColumnIndex("qID");
 		
+		cursor.moveToFirst();
+		while(!cursor.isAfterLast()){
+			int currentQID = cursor.getInt(index);
+			System.out.println("QID: " + currentQID);
+			 cursor.moveToNext();
+		}
+	}
+	
+	@Override
+	public void updateStatValue(int uID, String category, String tag) {
+		SQLiteDatabase db = getReadableDatabase();
+		String queryText = "SELECT value FROM USERSTAT WHERE uID = " + uID + 
+				" AND category = "
+				+ category
+				+ " AND tag=" + tag;
+
+		System.out.println("Select Query!");
+		System.out.println(queryText);
+		
+		Cursor cursor = db.rawQuery(queryText, null);
+		
+		ContentValues contentValues = new ContentValues();
+		contentValues.put(USER_ID_COLUMN,uID);
+		contentValues.put(COLUMN_CATEGORY,category);
+		contentValues.put(COLUMN_TAG,tag);
+		
+		db = getWritableDatabase();
+		
+		if(cursor.getCount()==0){
+			// insert new 
+			contentValues.put(COLUMN_VALUE,1);
+			db.insert(DatabaseConstants.USERSTAT_TABLE_NAME, null, contentValues);
+			
+		}else{
+			// update
+			int index = cursor.getColumnIndex(COLUMN_VALUE);
+			int value = cursor.getInt(index);
+			contentValues.put(COLUMN_VALUE,value + 1);
+			
+			String whereClause = USER_ID_COLUMN  + "= ? AND " + COLUMN_CATEGORY + "= ? AND " + COLUMN_TAG  + "= ?";
+			String[] whereArgs = {"" + uID,category,tag};
+			db.update(DatabaseConstants.USERSTAT_TABLE_NAME, contentValues, whereClause , whereArgs);
+		}
 	}
 
 

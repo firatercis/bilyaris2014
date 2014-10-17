@@ -34,7 +34,7 @@ public abstract class BilYarisActivity extends Activity implements AppStateObser
 	AppEngine applicationEngine;
 	BilYarisAppEngine byEngine;
 	
-	final static String DEFAULT_DESCRIPTION_SERVER = "31.210.54.136/bilyaris/";
+	final static String DEFAULT_DESCRIPTION_SERVER = "http://31.210.54.136/bilyaris/";
 	
 	String descriptionServer;
 	protected boolean descriptionsUpToDate;
@@ -114,7 +114,8 @@ public abstract class BilYarisActivity extends Activity implements AppStateObser
 	
 	protected String[] fetchDescriptions(){
 		String[] descriptions = new String[2];
-	
+		
+		
 		descriptionsUpToDate = true;
 		String cInfoDescriptionLocal =  readDescription(BilYarisAppEngine.CREATOR_INFO_DEFAULT_FILENAME,"internal");
 		String qpInfoDescription = null;

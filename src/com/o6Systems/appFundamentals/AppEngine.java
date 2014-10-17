@@ -8,7 +8,7 @@ import com.o6Systems.utils.database.DatabaseInterface;
 public abstract class AppEngine implements UserInputObserver{
 	public AppState currentState;
 	ArrayList<AppStateObserver> stateObservers;
-	protected DatabaseInterface dbInterface;
+
 	
 	protected AppEngine(){
 		stateObservers = new ArrayList<AppStateObserver>();
@@ -29,10 +29,6 @@ public abstract class AppEngine implements UserInputObserver{
 		stateObservers.add(stateObverver);
 	}
 	
-	// Database
-	public void setDatabaseInterface(DatabaseInterface dbInterface){
-		this.dbInterface = dbInterface;
-	}
 	
 	
 	public void start(){

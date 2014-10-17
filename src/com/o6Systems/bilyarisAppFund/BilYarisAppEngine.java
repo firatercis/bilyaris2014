@@ -42,6 +42,7 @@ public class BilYarisAppEngine extends AppEngine{
 	
 	final static int USER_ID_DEFAULT = 0;
 	
+	public final static int QP_DB_FETCH_SIZE = 1;
 	
 	// Database related
 	public final static String DATABASE_INIT_SCRIPT = "CREATE TABLE QUESTIONS(qID int, text varchar(255),category varchar(30), "
@@ -78,6 +79,7 @@ public class BilYarisAppEngine extends AppEngine{
 		}else if(currentBYState.majorStateID == ES_CATEGORY_SELECTION){
 			categorySelectionPage(prompt,params);
 		}else if (currentBYState.majorStateID == ES_WAITING_CHOICE){
+			
 			questionPage(prompt, params);
 		}else if (currentBYState.majorStateID == ES_PRINTING_TEXT){
 			if(prompt == UP_OK){
@@ -88,11 +90,28 @@ public class BilYarisAppEngine extends AppEngine{
 		return currentBYState;		
 	}
 	
+	
+	public Question fetchQuestionFromDB(int userID, String category, int minDifficulty, int maxDifficulty){
+		QuestionPack qp = databaseInterface.getQuestions(category, 0, 0, 100, QP_DB_FETCH_SIZE);
+		return qp.getQuestion(0);
+	}
+	
+	
+	
 	// State response functions
 	private void categorySelectionPage(int prompt, int[] params){
 		if(prompt == UP_CATEGORY_SELECT){
 			int categoryID = params[0];
+			String category = currentBYState.getCategories().get(categoryID);
+			QuestionPack questionBase = databaseInterface.getQuestions(category, 0, 0, 100, QP_DB_FETCH_SIZE);
+			//currentBYState.setQuestionBase(questionBase);
 			currentBYState.setCategory(categoryID);
+			
+			Question currentQuestion= fetchQuestionFromDB(0,category,0,100);
+			currentBYState.setQuestion(currentQuestion);
+			//currentBYState.fetchQuestion();
+			// TODO: User ve difficulty ayarlanacak.
+			
 			currentBYState.reset();
 			currentBYState.majorStateID = ES_WAITING_CHOICE;
 		}	
@@ -102,10 +121,24 @@ public class BilYarisAppEngine extends AppEngine{
 		if(prompt == UP_CHOICE){
 			int currentChoice = params[0];
 			currentBYState.processAnswer(currentChoice);
+			databaseInterface.setQuestionAsked(currentBYState.currentQuestion, currentBYState.getCurrentUser());
+			
 			if(currentBYState.isGameOver() == true){
 				printResults();
 				currentBYState.majorStateID = ES_PRINTING_TEXT;
+			}else{
+				Question currentQuestion= fetchQuestionFromDB(0,currentBYState.getCurrentCategory(),0,100);
+				currentBYState.setQuestion(currentQuestion);
+				currentBYState.incrementQuestionIndex();
 			}
+			
+			/*if(currentBYState.outOfQuestion()){
+				String category = currentBYState.getCurrentCategory();
+				User currentUser = currentBYState.getCurrentUser();
+				QuestionPack newPack = databaseInterface.getQuestions(category,currentUser.userID,0,100,QP_DB_FETCH_SIZE);
+				currentBYState.setQuestionBase(newPack);
+			}*/
+			
 		}
 		
 		if(prompt == UP_CANCEL){
@@ -162,20 +195,14 @@ public class BilYarisAppEngine extends AppEngine{
 		currentBYState.majorStateID = ES_CATEGORY_SELECTION;
 		
 		if(!upToDate){
-			QuestionPack importQuestions = QuestionPack.constructWithXMLString(qpDescription);
-			// Insert questions into the database
-			System.out.println("Questions are not up to date in database!");
 			dbInterface.clearQuestions();
+			QuestionPack importQuestions = QuestionPack.constructWithXMLString(qpDescription);
 			dbInterface.insertQuestionPack(importQuestions);
-		}else{
-			System.out.println("Questions are up to date!");
-			
 		}
-		
-		String generalCategory = currentBYState.getCategories().get(0);
-		
-		QuestionPack targetQuestionBase = dbInterface.getQuestions(generalCategory, USER_ID_DEFAULT, 0, 100);
-		currentBYState.setQuestionBase(targetQuestionBase);	
+			
+		// TODO: user selection eklenecek
+		User defaultUser = new User("default");
+		currentBYState.setCurrentUser(defaultUser);
 	}
 	
 	/*private void initDatabase(){
@@ -189,7 +216,6 @@ public class BilYarisAppEngine extends AppEngine{
 	@Override
 	public AppState onUserPrompt(int prompt, String[] params) {
 	
-		
 		return currentBYState;
 	}
 	

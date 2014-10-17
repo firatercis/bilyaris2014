@@ -62,6 +62,10 @@ public class Question {
         return alternatives;           
     }
     
+    public int getID(){
+    	return questionID;
+    }
+    
     public void backupAlternatives(){
         if(alternatives != null){
             choice0 = alternatives[0];

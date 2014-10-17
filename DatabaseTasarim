@@ -41,10 +41,15 @@ AND category=<cat>
 AND difficulty BETWEEN <minDifficulty> AND <maxDifficulty>
 
 setQuestionAsked(int userID, int questionID)
-INSERT INTO QUESTIONASKED VALUES(userID,questionID)
+INSERT INTO QUESTIONASKED VALUES(<userID>,<questionID>) 
+
+updateStatValue(int uid,String category, String tag, int value);
+SELECT value, count(value) FROM USERSTAT WHERE uid = <uid> AND category = <category> AND tag=<tag>;
 
 insertUser(User user)
 INSERT INTO USERS VALUES(0,user.name);
+
+
 
 int[] getUserStats(int userID);
 

@@ -26,13 +26,23 @@ public class BilYarisAppState extends AppState {
 	}
 	
 	QuestionPack questionBase;
-	QuestionPack currentQuestionPack;
 	Question currentQuestion;
 	String currentCategory;
 	
+	User currentUser;
+	
+	public User getCurrentUser() {
+		return currentUser;
+	}
+
+	public void setCurrentUser(User currentUser) {
+		this.currentUser = currentUser;
+	}
+
 	// TODO: Will be changed to UserStats object
 	int userScore;
 	int questionIndex;
+	int packQuestionIndex;
 	int userRemainingTime;
 	private boolean gameOver;
 
@@ -95,24 +105,33 @@ public class BilYarisAppState extends AppState {
 		return this.creatorInfo.alCategories;
 	}
 	
-	public void setCategory(int categoryID){
-		this.currentCategory = creatorInfo.alCategories.get(categoryID);
-		currentQuestionPack = questionBase.getSubPack(currentCategory);
-		fetchQuestion();
+	public String getCurrentCategory(){
+		return currentCategory;
 	}
 	
-	public void fetchQuestion(){
-		// TODO: Random soru algoritmasi eklenecek.
-		Random generator = new Random();
-		int questionID = generator.nextInt(currentQuestionPack.alQuestions.size());
-		setQuestion(currentQuestionPack.getQuestion(questionID));
+	public void setCategory(int categoryID){
+		this.currentCategory = creatorInfo.alCategories.get(categoryID);
+	}
+	
+	public boolean outOfQuestion(){
+		boolean result = false;
+		if(packQuestionIndex >= questionBase.getQuestions().size()){
+			result = true;
+		}
+		return result;
+	}
+		
+	/*public void fetchQuestion(){
+		setQuestion(questionBase.getQuestion(packQuestionIndex));
+		packQuestionIndex++;
 		userRemainingTime = DEFAULT_USER_TIME;
 		questionIndex++;
 		setUsingDoubleAnswer(false);
 		setCurrentSoundID(NO_SOUND);
-	}
+	}*/
 	
-	private void resetChoicesAvailable(){
+	private void resetQuestionState(){
+		userRemainingTime = DEFAULT_USER_TIME;
 		
 		if(choiceStates == null)
 			choiceStates = new ChoiceState[DEFAULT_N_CHOICES];
@@ -124,11 +143,16 @@ public class BilYarisAppState extends AppState {
 	
 	public void reset(){
 		questionIndex = 0;
+		packQuestionIndex = 0;
 		userScore = 0;
 		setGameOver(false);
 		setUsingDoubleAnswer(false);
 		initJokers();
 		setCurrentSoundID(NO_SOUND);
+	}
+	
+	public void incrementQuestionIndex(){
+		questionIndex++;
 	}
 	
 	public void applyJoker(int jokerID){
@@ -138,7 +162,7 @@ public class BilYarisAppState extends AppState {
 	
 	public void setQuestion(Question Q){
 		currentQuestion = Q;
-		resetChoicesAvailable();
+		resetQuestionState();
 		// TODO: Zaman ile ilgili kisimlar gelecek.
 	}
 	
@@ -146,12 +170,10 @@ public class BilYarisAppState extends AppState {
 		return jokers.get(i).available();
 	}
 	
-	
-	
 	public void processAnswer(int answerID){
 		if(currentQuestion.getAnswer() == answerID){
 			userScore ++;
-			fetchQuestion();
+			//fetchQuestion();
 			setCurrentSoundID(SOUND_CORRECT);
 		}else{
 			choiceStates[answerID] = ChoiceState.HIGHLIGHTED_WRONG;
