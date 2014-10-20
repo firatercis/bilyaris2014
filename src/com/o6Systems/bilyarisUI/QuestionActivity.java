@@ -221,12 +221,22 @@ public class QuestionActivity extends BilYarisActivity implements OnClickListene
     	
     	ChoiceState[] choiceStates = currentBYState.getChoiceStates();
     	
-    	lbQuestionText.setText(Q.text);
+    	String questionText = "#"+Q.getID()+":";
+    	questionText+=Q.text;
+    	lbQuestionText.setText(questionText);
     	//unHighlightButtons();
+    	int[] statistics = currentBYState.getStatistics();
     	for(int i=0; i<choiceStates.length; i++){
     		if(choiceStates[i] == ChoiceState.NORMAL){
     			choiceButtons[i].setVisibility(View.VISIBLE);
-    			choiceButtons[i].setText(Q.getAlternative(i));
+    			
+    			String choiceText = Q.getAlternative(i);
+    			
+    			if(statistics != null){
+    				choiceText += "(%" + statistics[i] + ")";
+    			}
+    			
+    			choiceButtons[i].setText(choiceText);
     		}
     		else if(choiceStates[i] == ChoiceState.HIDDEN){
     			choiceButtons[i].setVisibility(View.INVISIBLE);

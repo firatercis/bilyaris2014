@@ -64,6 +64,23 @@ public class BilYarisAppEngine extends AppEngine{
 		currentBYState.majorStateID = ES_INIT;		
 	}
 	
+	public User[] getUsers(){
+		return databaseInterface.getUsers();
+	}
+	
+	public boolean addUser(User user){
+		databaseInterface.insertUser(user);
+		return true; // TODO: kontrol edilecek.
+	}
+	
+	public void setCurrentUser(User user){
+		currentBYState.setCurrentUser(user);
+	}
+	
+	public void deleteUser(int userID){
+		databaseInterface.deleteUser(userID);
+	}
+	
 	public void registerDatabaseInterface(BYDatabaseInterface dbInterface){
 		this.databaseInterface = dbInterface;
 	}
@@ -75,7 +92,7 @@ public class BilYarisAppEngine extends AppEngine{
 		currentBYState.updateLevel = AppState.FULL_UPDATE;
 		
 		if(currentBYState.majorStateID == ES_INIT){
-			
+			// TODO kaldirilacak.
 		}else if(currentBYState.majorStateID == ES_CATEGORY_SELECTION){
 			categorySelectionPage(prompt,params);
 		}else if (currentBYState.majorStateID == ES_WAITING_CHOICE){
@@ -127,18 +144,12 @@ public class BilYarisAppEngine extends AppEngine{
 				printResults();
 				currentBYState.majorStateID = ES_PRINTING_TEXT;
 			}else{
-				Question currentQuestion= fetchQuestionFromDB(0,currentBYState.getCurrentCategory(),0,100);
-				currentBYState.setQuestion(currentQuestion);
-				currentBYState.incrementQuestionIndex();
+				if(currentBYState.isQuestionToBeFetched()){
+					Question currentQuestion= fetchQuestionFromDB(0,currentBYState.getCurrentCategory(),0,100);
+					currentBYState.setQuestion(currentQuestion);
+					currentBYState.incrementQuestionIndex();
+				}
 			}
-			
-			/*if(currentBYState.outOfQuestion()){
-				String category = currentBYState.getCurrentCategory();
-				User currentUser = currentBYState.getCurrentUser();
-				QuestionPack newPack = databaseInterface.getQuestions(category,currentUser.userID,0,100,QP_DB_FETCH_SIZE);
-				currentBYState.setQuestionBase(newPack);
-			}*/
-			
 		}
 		
 		if(prompt == UP_CANCEL){
@@ -200,9 +211,7 @@ public class BilYarisAppEngine extends AppEngine{
 			dbInterface.insertQuestionPack(importQuestions);
 		}
 			
-		// TODO: user selection eklenecek
-		User defaultUser = new User("default");
-		currentBYState.setCurrentUser(defaultUser);
+		
 	}
 	
 	/*private void initDatabase(){

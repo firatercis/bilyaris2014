@@ -43,20 +43,15 @@ public class BilYarisSQLiteHelper extends SQLiteOpenHelper implements BYDatabase
 	
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		
 		System.out.println("Creating database tables");
 		db.execSQL(DatabaseConstants.QUESTION_CREATE);
 		db.execSQL(DatabaseConstants.USER_CREATE);
 		db.execSQL(DatabaseConstants.QUESTION_ASKED_CREATE);
 		db.execSQL(DatabaseConstants.USERSTAT_CREATE);
-		
-		
 	}
 	
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		
-	
 	    db.execSQL("DROP TABLE IF EXISTS " + DatabaseConstants.QUESTION_TABLE_NAME);
 		db.execSQL("DROP TABLE IF EXISTS " + DatabaseConstants.USER_TABLE_NAME);
 		db.execSQL("DROP TABLE IF EXISTS " + DatabaseConstants.QUESTION_ASKED_TABLE_NAME);
@@ -180,9 +175,6 @@ public class BilYarisSQLiteHelper extends SQLiteOpenHelper implements BYDatabase
 		
 		QuestionPack qp = new QuestionPack();
 		cursor.moveToFirst();
-		
-	
-		
 	    while (!cursor.isAfterLast()) {
 	      Question currentQuestion = cursorToQuestion(cursor);
 	      qp.addQuestion(currentQuestion);
@@ -197,12 +189,9 @@ public class BilYarisSQLiteHelper extends SQLiteOpenHelper implements BYDatabase
 	
 	@Override
 	public void insertUser(User user) {
-		
 		SQLiteDatabase db = getWritableDatabase();
-		
 		ContentValues values = new ContentValues();
-		values.put(USER_ID_COLUMN, user.getUserID());
-		
+		values.put(USER_NAME_COLUMN, user.getName());
 		long insertID = db.insert(DatabaseConstants.USER_TABLE_NAME, null, values);
 		System.out.println("User Insert ID " + insertID);
 	}
@@ -269,5 +258,102 @@ public class BilYarisSQLiteHelper extends SQLiteOpenHelper implements BYDatabase
 		}
 	}
 
+	
+	/*
+	 * @Override
+	public QuestionPack getQuestions(String category, int userID, int minDifficulty,
+			int maxDifficulty, int nQuestions) {
+		
+		SQLiteDatabase db = getReadableDatabase();
+		
+		String queryText = "SELECT * FROM " +DatabaseConstants.QUESTION_TABLE_NAME+ " WHERE " 
+		+ QUESTION_ID_COLUMN + 
+		" NOT IN "
+		+ "(SELECT " + QUESTION_ID_COLUMN + " FROM " + DatabaseConstants.QUESTION_ASKED_TABLE_NAME + " WHERE uID = "
+				+ userID + ")"; 
+			
+		if(category!= null){
+			queryText +=" AND category='" + category + "'";
+		}
+		
+		if(minDifficulty != -1){
+			queryText += " AND difficulty BETWEEN " + minDifficulty + " AND " + maxDifficulty; 
+		}		
+		
+		queryText += " ORDER BY ABS(RANDOM()) LIMIT "  + nQuestions ; 
+		
+		System.out.println("Select Query!");
+		System.out.println(queryText);
+		
+	
+		Cursor cursor = db.rawQuery(queryText, null);
+		System.out.println("Cursor count" + cursor.getCount());
+		
+		QuestionPack qp = new QuestionPack();
+		cursor.moveToFirst();
+	    while (!cursor.isAfterLast()) {
+	      Question currentQuestion = cursorToQuestion(cursor);
+	      qp.addQuestion(currentQuestion);
+	      cursor.moveToNext();
+	    }
+	    cursor.close();
+	    
+	    System.out.println("Questions size!");
+	    System.out.println(qp.getQuestions().size());
+	    return qp;
+	}(non-Javadoc)
+	 * @see com.o6Systems.bilyarisAppFund.BYDatabaseInterface#getUsers()
+	 */
+	
+	@Override
+	public User[] getUsers() {
+		User[] users;
+		SQLiteDatabase db = getReadableDatabase();
+		String queryText = "SELECT * FROM " +DatabaseConstants.USER_TABLE_NAME ;
+		Cursor cursor = db.rawQuery(queryText, null);
+		int nUsers = cursor.getCount();
+		System.out.println("Number of users in system:" + nUsers);
+		if(nUsers == 0){
+			users = null;
+		}else{
+			users = new User[nUsers];
+			cursor.moveToFirst();
+			int currentUserIndex = 0;
+		    while (!cursor.isAfterLast()) {
+		      User currentUser = cursorToUser(cursor);
+		      users[currentUserIndex] = currentUser;
+		      currentUserIndex++;
+		      cursor.moveToNext();
+		    }
+		    cursor.close();
+		}
+		return users;
+	}
+	
+	private User cursorToUser(Cursor cursor){
+		
+		int index = cursor.getColumnIndex(USER_NAME_COLUMN);
+		String userName = cursor.getString(index);
+	
+		User U = new User(userName);
+		index = cursor.getColumnIndex(USER_ID_COLUMN);
+		int userID = cursor.getInt(index);
+		U.setUserID(userID);
+		// TODO: Diger user bilgileri de alinacak.
+		
+		return U;
+	}
+
+	@Override
+	public void deleteUser(int userID) {
+		SQLiteDatabase db = getWritableDatabase();
+		db.execSQL("DELETE FROM " +DatabaseConstants.USER_TABLE_NAME+" WHERE " + USER_ID_COLUMN+ "=" + userID);
+	}
+	
+	public void deleteAllUsers(){
+		SQLiteDatabase db = getWritableDatabase();
+		db.execSQL("DELETE FROM " +DatabaseConstants.USER_TABLE_NAME);
+	}
+	
 
 }

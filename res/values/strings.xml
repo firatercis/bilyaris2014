@@ -28,5 +28,8 @@
     <string name="title_activity_splash_screen">BilYaris</string>
     <string name="action_settings">Settings</string>
     <string name="default_index_str">Soru numarasi</string>
+    <string name="title_activity_user_login">UserLoginActivity</string>
+    <string name="default_username">Varsayılan</string>
+    <string name="title_activity_user_create">UserCreateActivity</string>
 
 </resources>

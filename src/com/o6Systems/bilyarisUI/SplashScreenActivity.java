@@ -13,6 +13,7 @@ import com.o6Systems.utils.net.HTTPModule;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
@@ -36,12 +37,15 @@ public class SplashScreenActivity extends BilYarisActivity {
 		
 		if(appInit == false){
 			System.out.println("Init Application");
-			initTask = new InitApplicationTask();
-			initTask.execute((Void[])null);
-			//initAppEngine();
+			//initTask = new InitApplicationTask();
+			//initTask.execute((Void[])null);
+			initAppEngine();
+			appInit=true;
 		}
 		
 	}
+	
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -67,7 +71,7 @@ public class SplashScreenActivity extends BilYarisActivity {
 	public void onTimer(){
 		if(timeRemaining <= 0 && appInit){
 			AppTimerTask.getInstance().removeObserver(this);
-			startActivity(new Intent(getApplicationContext(), CategoryActivity.class));
+			startActivity(new Intent(getApplicationContext(), UserLoginActivity.class));
 			finish();
 		}else{
 			timeRemaining --;

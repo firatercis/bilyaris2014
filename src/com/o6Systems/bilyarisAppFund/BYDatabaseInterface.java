@@ -7,6 +7,8 @@ public interface BYDatabaseInterface {
 	public void clearQuestions();
 	
 	public void insertUser(User user);
+	public void deleteUser(int userID);
+	public User[] getUsers();
 	public void setQuestionAsked(Question Q, User U);
 	public void updateStatValue(int uid,String category, String tag);
 }

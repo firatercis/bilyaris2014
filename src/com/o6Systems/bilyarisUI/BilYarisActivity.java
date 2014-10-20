@@ -46,7 +46,7 @@ public abstract class BilYarisActivity extends Activity implements AppStateObser
         byEngine = (BilYarisAppEngine)applicationEngine;
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         initViews();
-        onStateUpdated(applicationEngine.currentState);
+      //  onStateUpdated(applicationEngine.currentState);
     }
 	 
 	public abstract void initViews();
